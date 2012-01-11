@@ -1,0 +1,360 @@
+<!doctype html>
+
+	<head>
+		<title>Fact</title>
+		
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="author" content="" />
+		<meta name="MSSmartTagsPreventParsing" content="true" />
+		<meta http-equiv="imagetoolbar" content="no" />
+		<meta name="robots" content="index, follow" />
+
+		<link rel="stylesheet" type="text/css" href="css/screen.css" />
+
+		<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+
+		
+		<script type="text/javascript">
+			$(document).ready( function(){
+        $('.input_txt').each(function() {
+          $('.input_txt').focus(function() {
+	          $(this).val("").unbind("focus");
+          });
+        });
+
+			});
+		</script>
+		
+	</head> 
+
+	<body>
+		<div class="top_bar">
+		<div class="top_bar_inside">
+			<span class="alerts_title">ALERTS</span>
+			<p>As of October 5th 2011, FACT will no longer operate RideFACT in Ramona.Please contact NCTD’s FLEX service to schedule your ride.… <a href="#">Read Alerts</a></p>
+		</div>
+		</div><!--end of top_bar-->
+		
+		<div id="header">
+			<div class="logo"><a href="#"><img src="images/logo.png" alt="Fact"></a></div>
+			<div class="fonts_box">
+				<a href="#" class="ico_font1">A</a>
+				<a href="#" class="ico_font2">A</a>
+				<a href="#" class="ico_font3">A</a>
+				<span>Font Size</span>
+			</div><!--end of fonts_box-->
+		</div><!--end of header-->
+		
+	
+		<div id="content">	
+			<div class="nav_box">
+				<ul class="nav">
+					<li class="on"><a href="index.html">Home</a></li>
+					<li><a href="#">Programs</a></li>
+					<li><a href="#">Resources</a></li>
+					<li><a href="#">About Us </a></li>
+					<li><a href="#">Meetings</a></li>
+					<li class="last"><a href="#">Contact Us</a></li>
+				</ul>
+			</div>
+				
+			<div class="cont_box">
+			<div class="cont_box_inside">
+				<div class="sidebar">
+					<div class="map"><img src="images/map.jpg" alt=""></div>
+					<a href="#" class="map_view">View Map of Route</a>
+					<div class="title_option">FILTER OPTIONS</div>
+					<div class="side_block">
+						<div class="side_title">Specific Services You Require</div>
+						<div class="side_row">
+							<input type="checkbox" class="input_checkbox">
+							<span>Wheelchair Accessible Vehicle</span>
+						</div>
+						<div class="side_row">
+							<input type="checkbox" class="input_checkbox">
+							<span>Personal Care Attendant</span>
+						</div>
+						<div class="side_row">
+							<input type="checkbox" class="input_checkbox">
+							<span>ADA Paratransit Services (transit district)</span>
+						</div>
+						<div class="side_row">
+							<input type="checkbox" class="input_checkbox">
+							<span>Bus Tokens/ Bus Pass</span>
+						</div>
+						<div class="side_row">
+							<input type="checkbox" class="input_checkbox">
+							<span>Charter Service for Groups</span>
+						</div>
+						<a href="#" class="btn_more">show more</a>
+					</div><!--end of side_block-->
+					
+					<div class="side_block">
+						<div class="side_title">Price</div>
+						<div class="side_row">
+							<div class="side_col">
+								<input type="radio" class="input_radio">
+								<span>Free</span>
+							</div>
+							
+							<div class="side_col">
+								<input type="radio" class="input_radio">
+								<span>$5-$10</span>
+							</div>
+						</div><!--end of side_row-->
+						
+						<div class="side_row">
+							<div class="side_col">
+								<input type="radio" class="input_radio">
+								<span>Under $5</span>
+							</div>
+							
+							<div class="side_col">
+								<input type="radio" class="input_radio">
+								<span>Over $10</span>
+							</div>
+						</div><!--end of side_row-->
+					</div><!--end of side_block-->
+					
+					
+					<div class="side_block">
+						<div class="side_title">Fees</div>
+						<p><img src="images/free_slider.gif" alt=""></p>
+					</div><!--end of side_block-->
+					
+					
+					<div class="side_block">
+						<div class="side_title">Eligibility Requirements</div>
+						<div class="side_row">
+							<input type="radio" class="input_radio">
+							<span>Show All</span>
+						</div>
+						<div class="side_row">
+							<input type="radio" class="input_radio">
+							<span>Eligiblity required</span>
+						</div>
+						<div class="side_row">
+							<input type="radio" class="input_radio">
+							<span>Open to public</span>
+						</div>
+					</div><!--end of side_block-->
+				</div><!--end of sidebar-->
+				
+				<div class="main_content">
+					<div class="path_box">
+					<form action="search_result.html" class="path_form">
+					<fieldset>
+						<div class="path_block">
+							<div class="path_title">YOUR PICK UP LOCATION</div>
+							<input type="text" value="92104" class="input_txt">
+							<a href="#" class="btn_other">or select a location</a>
+						</div>
+						<div class="path_ico"><img src="images/ico_arrow2.gif" alt=""></div>
+						
+						<div class="path_block">
+							<div class="path_title">GOING TO</div>
+							<input type="text" value="92104" class="input_txt">
+							<a href="#" class="btn_other">or select a location</a>
+						</div>
+						
+						<input type="submit" value="FIND A RIDE" class="input_submit">
+					</fieldset>
+					</form>
+					</div>
+					
+					<div class="found_result">
+						<div class="found_result_title"><strong>Found :</strong> 96 results, showing 1 - 20</div>	
+						<div class="result_pager1">
+							<a href="#" class="page_prev">&nbsp;</a>
+							<a href="#" class="btn_page page_on">1</a>
+							<a href="#" class="btn_page">2</a>
+							<a href="#" class="btn_page">3</a>
+							<a href="#" class="btn_page">4</a>
+							<span>...</span>
+							<a href="#" class="btn_page">8</a>
+							<a href="#" class="page_next">&nbsp;</a>
+						</div>
+					</div><!--end of result_pager-->
+					
+					<div class="search_result_box">
+						<div class="search_result_title">
+							<span>Agency / Program</span>
+							<strong>Contact</strong>
+						</div>
+						
+						<div class="search_result_row">
+							<div class="result_title"><a href="result.html">Ability Center</a></div>
+							<div class="result_txt1">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis… <a href="result.html">Read More</a></p>
+							</div>
+							
+							<div class="result_txt2">
+								<p><strong>Phone:</strong> 800-242-4111</p>
+								<p><strong>Website:</strong> <a href="#">www.abilitycenter.com</a></p>
+								<p><strong>Email:</strong> <a href="#">info@abilitycenter.com</a></p>
+							</div>
+						</div><!--end of search_result_row-->
+						
+						<div class="search_result_row">
+							<div class="result_title"><a href="result.html">Ability Center</a></div>
+							<div class="result_txt1">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis… <a href="result.html">Read More</a></p>
+							</div>
+							
+							<div class="result_txt2">
+								<p><strong>Phone:</strong> 800-242-4111</p>
+								<p><strong>Website:</strong> <a href="#">www.abilitycenter.com</a></p>
+								<p><strong>Email:</strong> <a href="#">info@abilitycenter.com</a></p>
+							</div>
+						</div><!--end of search_result_row-->
+						
+						<div class="search_result_row">
+							<div class="result_title"><a href="result.html">Ability Center</a></div>
+							<div class="result_txt1">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis… <a href="result.html">Read More</a></p>
+							</div>
+							
+							<div class="result_txt2">
+								<p><strong>Phone:</strong> 800-242-4111</p>
+								<p><strong>Website:</strong> <a href="#">www.abilitycenter.com</a></p>
+								<p><strong>Email:</strong> <a href="#">info@abilitycenter.com</a></p>
+							</div>
+						</div><!--end of search_result_row-->
+						
+						<div class="search_result_row">
+							<div class="result_title"><a href="result.html">Ability Center</a></div>
+							<div class="result_txt1">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis… <a href="result.html">Read More</a></p>
+							</div>
+							
+							<div class="result_txt2">
+								<p><strong>Phone:</strong> 800-242-4111</p>
+								<p><strong>Website:</strong> <a href="#">www.abilitycenter.com</a></p>
+								<p><strong>Email:</strong> <a href="#">info@abilitycenter.com</a></p>
+							</div>
+						</div><!--end of search_result_row-->
+						
+						<div class="search_result_row">
+							<div class="result_title"><a href="result.html">Ability Center</a></div>
+							<div class="result_txt1">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis… <a href="result.html">Read More</a></p>
+							</div>
+							
+							<div class="result_txt2">
+								<p><strong>Phone:</strong> 800-242-4111</p>
+								<p><strong>Website:</strong> <a href="#">www.abilitycenter.com</a></p>
+								<p><strong>Email:</strong> <a href="#">info@abilitycenter.com</a></p>
+							</div>
+						</div><!--end of search_result_row-->
+						
+						<div class="search_result_row">
+							<div class="result_title"><a href="result.html">Ability Center</a></div>
+							<div class="result_txt1">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis… <a href="result.html">Read More</a></p>
+							</div>
+							
+							<div class="result_txt2">
+								<p><strong>Phone:</strong> 800-242-4111</p>
+								<p><strong>Website:</strong> <a href="#">www.abilitycenter.com</a></p>
+								<p><strong>Email:</strong> <a href="#">info@abilitycenter.com</a></p>
+							</div>
+						</div><!--end of search_result_row-->
+						
+						<div class="search_result_row">
+							<div class="result_title"><a href="result.html">Ability Center</a></div>
+							<div class="result_txt1">
+								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis… <a href="result.html">Read More</a></p>
+							</div>
+							
+							<div class="result_txt2">
+								<p><strong>Phone:</strong> 800-242-4111</p>
+								<p><strong>Website:</strong> <a href="#">www.abilitycenter.com</a></p>
+								<p><strong>Email:</strong> <a href="#">info@abilitycenter.com</a></p>
+							</div>
+						</div><!--end of search_result_row-->
+					</div><!--end of search_result_box-->
+					
+					<div class="result_pager2">
+						<a href="#" class="page_prev">Prev</a>
+						<a href="#" class="btn_page page_on">1</a>
+						<a href="#" class="btn_page">2</a>
+						<a href="#" class="btn_page">3</a>
+						<a href="#" class="btn_page">4</a>
+						<span>...</span>
+						<a href="#" class="btn_page">8</a>
+						<a href="#" class="page_next">Next</a>
+					</div><!--end of result_pager2-->
+					
+				</div><!--end of main_content-->
+			</div>
+			</div><!--end of cont_box-->
+			
+		</div><!--end of content-->
+		
+		
+		<div id="footer">
+			<div class="footer_row1">
+				<div class="footer_block">
+					<div class="footer_title">ABOUT US</div>
+					<ul class="footer_list">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="#">News</a></li>
+						<li><a href="#">The Board</a></li>
+						<li><a href="#">CTSA / CAM Meetings</a></li>
+						<li><a href="#">History</a></li>
+						<li><a href="#">Jobs / Bids</a></li>
+					</ul>
+				</div>
+
+				<div class="footer_block">
+					<div class="footer_title">RESOURCES</div>
+					<ul class="footer_list">
+						<li><a href="#">Search</a></li>
+						<li><a href="#">Alerts</a></li>
+						<li><a href="#">ADA ParaTransit</a></li>
+						<li><a href="#">Useful Links</a></li>
+						<li><a href="#">Library</a></li>
+					</ul>
+				</div>
+
+				<div class="footer_block">
+					<div class="footer_title">SUPPORT</div>
+					<ul class="footer_list">
+						<li><a href="#">Contact Us</a></li>
+						<li><a href="#">Give Feedback</a></li>
+						<li><a href="#">Get Involved</a></li>
+					</ul>
+					
+					<p>Email: email@email.com<br>Toll Free: (888) 924-3228</p>
+				</div>
+
+				<div class="footer_block last_footer_block">
+					<div class="footer_title">FOLLOW US</div>
+					<form action="#" class="sign_form">
+					<fieldset>
+						<div class="sign_form_title">Newsletter Signup</div>
+						<input type="text" value="Your Name" class="input_txt">
+						<input type="text" value="Your Email" class="input_txt">
+						<input type="submit" value="submit" class="input_submit">
+					</fieldset>
+					</form>
+					
+					<p>
+						<a href="#"><img src="images/link_f.png" alt=""></a>
+						<a href="#"><img src="images/link_t.png" alt=""></a>
+						<a href="#"><img src="images/link_rss.png" alt=""></a>
+					</p>
+				</div>
+			</div><!--end of footer_row1-->	
+			
+			<div class="footer_row2">
+				<div class="copyright">&copy;2011 FACT  <span>ı</span>  all rights reserved</div>
+				<div class="btn_contribute"><a href="#"><span>Contribute Today</span></a></div>
+			</div><!--end of footer_row2-->
+		
+			<div class="logo_w3c"><img src="images/logo_w3c.gif" alt=""></div>
+		</div><!--end of footer-->
+	</body>
+</html>
