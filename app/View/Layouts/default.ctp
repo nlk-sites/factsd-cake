@@ -1,3 +1,4 @@
+<?php /*
 <!doctype html>
 
 <head>
@@ -101,6 +102,13 @@
                             </div>
                     </div><!--end of find_box-->
         <?php }?>
+<?php */?>
+    <?php
+    require( '../wp-load.php' );
+    get_header();
+    //echo 'new content outside WordPress';
+    //get_footer();
+    ?>
         <div class="cont_box">
             <?php echo $this->Session->flash(); ?>
 
