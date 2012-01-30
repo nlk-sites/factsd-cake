@@ -25,14 +25,33 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
+    $controllers = Cache::read('controllers_list');
+
+    if ($controllers === false){
+        $controllerList = App::objects('controller');
+        foreach ($controllerList as $value){
+            if ($value != 'AppController' && $value != 'ProgramsController'){
+                $controllers[] = Inflector::underscore(substr($value, 0, -10));
+            }
+        }
+        $controllers = implode('|', $controllers);  
+        Cache::write('controllers_list', $controllers);  
+    }
+
     Router::connect('/', array('controller' => 'programs', 'action' => 'index'));
+    
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
     Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
     
     Router::connect('/admin', array('controller' => 'agencies', 'action' => 'index', 'admin' => TRUE));
-
+    Router::connect('/admin/:controller/:action/*', array('admin' => TRUE));
+    Router::connect('/admin/:controller/*', array('admin' => TRUE));
+    
+    Router::connect('/:controller/:action/*', array(), array('controller' => $controllers));
+    Router::connect('/:action/*', array('controller' => 'programs'));
+    
     /*Router::connect(
         '/programs/view/:slug', // E.g. /blog/3-CakePHP_Rocks
         array('controller' => 'program', 'action' => 'view'),
