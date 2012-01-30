@@ -1,0 +1,687 @@
+
+/* -------------------------------------------------------------------------------- 
+                                      TAGS                                    
+   -------------------------------------------------------------------------------- */
+BODY { padding: 0px; margin: 0px; height: 100%;}
+BODY, TH, TD, DIV, P, SPAN, A, INPUT, BUTTON, SELECT { font: 8pt Arial; }
+BODY {  color: #1D3566; }
+TABLE { width:100%;height:100% }
+
+A        { color: #03c; }
+A:hover  { color: #ff0000; }
+
+H1 { font-size: 14pt; 
+background: url('../img/admin/lst_dots.gif') no-repeat left;
+margin: 0px 0px 5px 6px; 
+padding: 0px 0px 0px 10px; 
+}
+H2 { font-size: 13pt; }
+H3 { font-size: 12pt; }
+H4 { font-size: 11pt; }
+
+/* -------------------------------------------------------------------------------- 
+                                      BUTTON                                   
+   -------------------------------------------------------------------------------- */
+  .btn-disabled {
+  border: 1px inset #E6E6E6;
+  display: inline;
+  padding: 1px 5px 1px 5px;
+  color: gray;
+  margin: 0 5px 0 0;
+  text-align: center;
+  background: white;
+}
+.btn-disabled a {
+    text-decoration: none;
+}
+
+.btn-show {
+  border: 1px outset #E6E6E6;
+  display: inline;
+  padding: 1px 5px 1px 5px;
+  margin: 0 5px 0 0;
+  text-align: center;
+  color: black;
+  background: white; 
+    text-decoration: none;
+}
+.btn-show a {
+    text-decoration: none;
+}
+.btn-show:hover { 
+  color:red;
+}
+/* -------------------------------------------------------------------------------- 
+                                      FRAME                                    
+   -------------------------------------------------------------------------------- */
+#utility 
+{ 
+  text-align: right; 
+  background: url('../img/admin/bg_gradiant.gif') repeat-y left; 
+  color: #FFFFFF;
+  font: 7pt Verdana;
+  padding: 5px;
+}
+#utility a 
+{ 
+  color: #FFFFFF; 
+}
+
+#logo 
+{
+  background: url('../img/admin/bg_lightGradient.gif') repeat-y left;
+  height: 36px;
+  line-height: 36px;
+  font-size: 14pt;
+    letter-spacing: 0.2em;
+  padding: 0px 0px 0px 10px;
+  color: #999; 
+}
+
+#logout 
+{
+  color: #ffffff;
+  position: absolute;
+  top: 7px;
+  right: 0px;
+  padding-right: 12px;
+}
+
+#logout a 
+{
+  color:#ffffff;
+}
+
+#logout a:hover
+{
+  color:#ff0000;
+}
+
+#banner
+{ 
+  background: url('../img/admin/bg_banner.gif') repeat-y left #5175c9; 
+  color: #FFFFFF; 
+  font-size: 10pt;
+  padding: 5px 5px 5px 10px;
+    letter-spacing: 0.3em;
+}
+
+#navigation
+{ 
+  background: #F1F1F1; 
+  color: #C0C0C0; 
+  border-top: #999 1px solid; 
+  border-bottom: #999 1px solid; 
+  vertical-align: middle; 
+  padding: 8px 10px 8px 10px; 
+}
+#navigation a
+{ 
+  font: 8pt Verdana; 
+  text-decoration: none; 
+  padding: 5px 10px 5px 10px; 
+  color: #000000; 
+  border: #F1F1F1 1px solid; 
+}
+#navigation a:hover 
+{ 
+  border: #999 1px solid; 
+  background: #C0C0C0; 
+  color: #000000; 
+}
+#navigation a.high
+{
+  font-weight: bold;
+}
+
+#footer
+{
+  background: url('../img/admin/bg_gradiant.gif') repeat-y left; 
+  color: #000000; 
+  border-top: 1px solid #5076c9; 
+  padding: 10px;
+  font: 7pt Verdana;
+}
+
+#middle
+{
+  height: 100%;
+}
+
+/* -------------------------------------------------------------------------------- 
+                                       FRAME                                    
+   -------------------------------------------------------------------------------- */
+#frame {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  border-collapse: collapse;
+}
+
+#crumbtrail,
+#crumbtrail a
+{ 
+  text-decoration: none;
+  font-size: 8pt; 
+}
+#crumbtrail
+{ 
+  padding: 6px 0px 2px 0px; 
+  background: url('../img/admin/bg_lightGradient2.gif') no-repeat bottom left; 
+}
+
+/* -------------------------------------------------------------------------------- 
+                                        MAIN                                    
+   -------------------------------------------------------------------------------- */
+#main { 
+  vertical-align: top;
+  padding: 21px 10px 10px 10px; 
+  position:relative;
+  top:0;
+  left:0;
+}
+
+#main h1
+{
+  font-size: 14pt; 
+  font-weight: bold; 
+  margin: 0px 0px 5px 6px; 
+  padding: 0px 0px 0px 10px; 
+  background: url('../img/admin/lst_dots.gif') no-repeat left;
+  height: 25px;
+  line-height: 25px;
+}
+
+.message 
+{ 
+  background: #dfdfdf;
+  padding: 5px;
+  border: 1px solid #c00000;
+  color: #c00000;
+  font-weight: bold;
+}
+  
+
+/* -------------------------------------------------------------------------------- 
+                                        FORMS                                    
+   -------------------------------------------------------------------------------- */
+.form {
+   width: 100%;
+}
+.form-label {
+  text-align: right;
+  padding: 5px;
+  background: #E6E6E6;
+  border: 1px solid #E6E6E6;
+}
+.form-required {
+  text-align: right;
+  padding: 5px;
+  background: #E6E6E6;
+  border: 1px solid #E6E6E6;
+  font-weight: bold;
+}
+.form-header {
+   width: 100%;
+   text-align: right;
+   padding: 10px 0;
+}
+.form-data {
+  padding: 5px;
+  border: 1px solid #E6E6E6;
+}
+.form-bottom {
+clear:both;
+  width: 100%;
+  margin: 5px 0px 0px 0px;
+  padding: 10px 0px 0px 20px;
+}
+/*.form-bottom input, button{
+  width: 100px;
+}*/
+.grid {
+  width: 100%;
+}
+.form-error{
+    background: yellow;
+}
+.inline-icon {
+    border: 0;
+    display: inline;
+}
+/* -------------------------------------------------------------------------------- 
+                                       CONTENT                                    
+   -------------------------------------------------------------------------------- */
+#content {
+  vertical-align:top;
+  width:100%;
+  padding:10px;
+}
+
+/* -------------------------------------------------------------------------------- 
+                                       SIDEBAR                                    
+   -------------------------------------------------------------------------------- */
+#sidebar {
+  width: 210px;
+  height: 100%;
+  background: #EDF2FC; 
+  padding: 0; 
+  border-right: #999 1px solid;
+  vertical-align: top;
+  border-bottom:0px none
+}
+#sidebar h1 {
+  width: 196px;
+  height: 26px;
+  line-height: 26px;
+  background: url('../img/admin/bg_title.gif') no-repeat left;
+  color: #FFFFFF; 
+  font-size: 120%; 
+  font-weight: bold;
+  padding:15px 0px 15px 10px;
+  margin-left:5px;
+  margin-bottom:20px;
+}
+#sidebar ul { 
+  padding: 0px 0px 0px 10px; 
+  margin: 0px 0px 0px 20px; 
+}
+#sidebar li { 
+  margin: 5px 0px 5px 0px; 
+}
+#sidebar fieldset {
+  margin: 0px 7px 0px 5px;
+  padding-bottom: 4px;
+}
+#sidebar legend {
+  font-weight: bold;
+}
+#sidebar select {
+  width: 100%;
+}
+#side-nav-on {
+  font-weight: bold;
+}
+#sidebar p {
+  margin: 0px 5px 15px 15px;
+}
+#sidebar table {
+  border-collapse: collapse;
+  margin: 0px;
+  padding: 0px;
+}
+#sidebar table td {
+  padding: 2px 2px 2px 1px;
+}
+  
+#box
+{
+  background: #E6E6E6;
+  border: 1px solid #999;
+  margin: 0px 0px 20px 0px;
+}
+#box ul 
+{
+  margin: 10px 0px 10px 20px;
+  padding: 0px;
+}
+
+#error
+{
+  background: #ff6600;
+}
+.dropdown-trigger{
+  display:inline;
+  cursor: pointer;
+  background: url('../img/admin/btn_down_tiny.gif') no-repeat right;
+  padding-right: 7px;
+}
+.dropdown 
+{
+    background: #ffffff;
+    border: 1px solid #7f9db9;
+    z-index: 100;
+}
+.dropdown a
+{
+    padding: 3px;
+    display: block;
+    text-decoration: none;
+}
+.dropdown a:hover
+{
+    color: red;
+    background:  #E6E6E6;
+}
+
+/* -------------------------------------------------------------------------------- 
+                                       LISTS                                    
+   -------------------------------------------------------------------------------- */
+
+.scroller
+{
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.list
+{
+  width: 100%;
+}
+.list th
+{
+  font-weight: bold;
+  background: #C0C0C0;
+  border-bottom: 1px solid #999;
+  height: 22px;
+}
+.sort{
+cursor:pointer;
+}
+.list th a
+{
+  font-weight: bold;
+  background: #C0C0C0;
+  color: #1D3566;
+  text-decoration: none;
+}
+.list th img
+{
+    border:0;
+}
+.list td img
+{
+    border: 0;
+}
+.list tr.type0
+{
+  background: #E6E6E6;
+}
+.list td a
+{
+  text-decoration: none;
+}
+
+.row-type-0 {
+    background: #E6E6E6;
+}
+.row-type-1 {
+}
+.row-highlight {
+    background: #ff9600;
+}
+.clickable {
+    cursor: pointer;
+}
+.clickable label a:hover {
+    background: #ff9600;
+    color: black;
+}
+.clickable label a {
+    display: block;
+    color: black;
+}
+.utility-buttons
+{
+    text-align:right;
+}
+
+/* -------------------------------------------------------------------------------- 
+                                       TABS                                    
+   -------------------------------------------------------------------------------- */
+.tabs {
+  width: 780px;
+  height: 20px;
+  line-height: 20px;
+  border-bottom: 5px solid #5175c9;
+  padding: 0px 0px 0px 20px;
+  margin: 0px 0px;
+}
+.tabs a {
+  font-size: 9pt;
+  display: block;
+  height: 17px;
+  padding: 0 10px;
+  float: left;
+  text-align: center;
+  padding-top: 2px;
+  text-decoration: none;
+  border-top: 1px outset grey;
+  border-left: 1px outset grey;
+  border-right: 1px outset grey;
+  background: silver;
+  color: #5175c9;
+}
+#tab-on {
+  border-top: 1px inset grey;
+  border-left: 1px inset grey;
+  border-right: 1px inset grey;
+  background: #5175c9;
+  color: white;
+  font-weight: bold;
+}
+a.tab-on {
+  border-top: 1px inset grey;
+  border-left: 1px inset grey;
+  border-right: 1px inset grey;
+  background: #5175c9;
+  color: white;
+  font-weight: bold;
+}
+
+/* -------------------------------------------------------------------------------- 
+                                       PAGINATION                                    
+   -------------------------------------------------------------------------------- */
+
+#page-numbers {
+    list-style-type: none;
+    padding: 2px 0 0 0px;
+    margin: 1px 0 0 2px;
+}
+#page-numbers li {
+    float: left;
+    padding-right: 10px;
+}
+#page-numbers a{
+    padding-right: 3px;
+}
+#page-numbers em{
+    font-style: normal;
+    font-weight: bold;
+    padding-right: 3px;
+}
+#pagination img{
+    border: 0;
+}
+
+/* --------------------------------------------------------------------------------
+                                    
+   -------------------------------------------------------------------------------- */
+
+
+/*------------------------------------------------------*/
+#loading-img {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    display:none;
+}
+
+/* -------------------REPORT GENERATION ----------------*/
+
+/* --- column header dropdown lists */
+.column-bucket {
+    height: 100%;
+    position: absolute;
+    background: white;
+    border: 1px solid black;
+}
+.column-bucket-trigger {   
+    text-align: center;
+    float: left; 
+    width: 120px;
+    background: #c0c0c0;
+    border: 1px outset #c0c0c0;    
+    cursor: pointer;
+}
+.column-bucket-trigger collapsed {
+    border: 1px outset #c0c0c0;    
+}
+.column-bucket-trigger expanded {
+    border: 1px inset #c0c0c0;        
+}
+/* --- report body----*/
+.columns-wrapper{
+    overflow:auto;
+    padding-bottom:20px
+}
+.columns-wrapper ul {
+    list-style-position:inside;
+    list-style-type:none;
+}
+.columns-wrapper li {
+    float:left;
+    margin:0 1px;
+    width: 140px;
+}
+
+.rep-row-type-0 {
+    height:2em;
+}
+.rep-row-type-1 {
+    background: #E6E6E6;
+    height:2em;
+}
+
+.report-column-handle {
+    background: #f0f0f0;
+    cursor: pointer;
+    padding: 2px 0;
+    height: 2em;
+}
+.report-column-handle table {
+    padding:0;
+    margin:0;
+}
+.report-column-handle .closer {
+    width: 13px;
+}
+
+.report-column-handle .closer a {
+    display:block;
+    width: 100%;
+    background: url('../img/admin/xout.gif') no-repeat left;    
+    text-decoration: none;
+}
+.report-column-handle .closer a:hover {
+    display:block;
+    width: 100%;
+    background: url('../img/admin/xout-live.gif') no-repeat left;    
+    text-decoration: none;    
+}
+.report-column-handle .hider {
+    width:120px;
+}
+.report-column {
+    float: left;
+    width: 140px;
+    margin: 0 1px;
+}
+.report-column div {
+    width: 140px;
+}
+.report-column div select {
+    height: 1.7em;
+}
+
+.report-header {
+    vertical-align: middle; 
+    border: none;
+    font-weight: bold;
+    background: #C0C0C0;
+    white-space: nowrap;
+    height: 2em;
+    
+}
+.rep-cell {
+    border:0;
+    padding:2px;
+    margin:0;
+    background:0
+}
+.bg-pink {
+    background:pink;
+    height:2em;
+}
+.bg-lightgreen {
+    background:lightgreen;
+    height:2em;
+}
+
+.displayNone {
+    display: none;
+}
+
+/* ------------------------LOGIN-----------------------*/
+
+#login {
+  text-align: right;
+  padding: 5px;
+  background: #E6E6E6;
+  border: 3px double #1D3566;
+}
+
+/* ------------------------COLLAPSING LEGENDS-----------------------*/
+LEGEND.expanded{
+    background: url('../img/admin/btn_down.gif') no-repeat right; 
+    padding-right: 12px;
+    cursor: pointer;  
+}
+LEGEND.collapsed {
+    background: url('../img/admin/btn_up.gif') no-repeat right; 
+    padding-right: 12px;
+    cursor: pointer;  
+}
+/* ------------------------AUTO COMPLETE LISTS -----------------------*/
+
+
+div.auto_complete {
+    position         :absolute;
+    width            :250px;
+    background-color :white;
+    border           :1px solid #888;
+    margin           :0px;
+    padding          :0px;
+}
+
+li.selected { background-color: #ffb; }
+
+#breadcrumbs {padding: 0 0 10px 0;}
+
+#breadcrumbs h2 {
+    margin-bottom:5px;
+}
+
+    div.no_data_table p, div.no_data_table p a {
+        font-size: 14px;
+    }
+    div.actions {padding-left:2px;}
+    
+    
+#form-buttons div {display:inline;}
+#normal-fee-div div {display: inline;}
+span.required {color: #990000;}
+td.actions {text-align: center;}
+td.actions a {padding:2px;}
+th.actions {width:80px;}
+div.no_data_table p, div.no_data_table p a {
+    font-size: 14px;
+}
+div.pager_results_per_page { float: right; }
+
+div.text, div.textarea, div.password {padding-right:6px;}
+div.text input, div.password input {width:100%;}
+
+table.list th a.asc:after {content: url('../img/admin/asc.png'); padding-left: 5px;}
+table.list th a.desc:after {content: url('../img/admin/desc.png'); padding-left: 5px;}

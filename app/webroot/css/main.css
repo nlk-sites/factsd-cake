@@ -1,0 +1,122 @@
+/* CSS Document */
+body{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+#maincontainer{
+width:100%;
+position:relative;
+top:0;
+}
+
+#header{
+background:#5175C9 url(../img/bg_banner.gif) repeat-y scroll left center;
+color:#FFFFFF;
+width:100%;
+padding:0px;
+}
+
+#header #title{
+font-size:14px;
+}
+
+#menu{
+padding:8px 0;
+background:#EEEEEE;
+border-bottom:1px solid #999999;
+width:100%;
+color:#CCCCCC;
+}
+
+#menu a{
+font-size:10px;
+color:#000;
+text-decoration:none;
+padding:5px 4px;
+margin:5px;
+}
+
+#menu a.active{
+background:#CCCCCC;
+border:1px solid #999999;
+padding:5px 3px;
+}
+
+#menu a:hover{
+background:#CCCCCC;
+border:1px solid #999999;
+padding:5px 3px;
+}
+
+#rtbtn{
+text-align:right;
+margin:0px 7px 0px 5px;
+}
+
+#rtbtnInt{
+text-align:right;
+}
+
+.table{
+border:1px solid #E6E6E6;
+}
+
+.row1{
+position:relative;
+padding:5px;
+background:#BBBBBB;
+width:500px;
+}
+
+.row2{
+position:relative;
+padding:5px;
+background:#DDDDDD;
+width:500px;
+}
+
+.offset{
+position:absolute;
+right:0;
+top:0;
+}
+
+.padbox{
+padding:15px;
+}
+
+.floatbox{
+width:200px;
+float:left;
+}
+
+.spacer{
+clear:both;
+}
+
+.infoItem{
+float:left;
+padding:2px;}
+
+.infoLabel{
+float:left;
+padding:2px;
+background:inherit;}
+
+.infoData{
+float:left;
+padding:2px;
+background:inherit;}
+
+.rowExpander{
+background:#CCCCCC;}
+
+.floatRight{
+float:right;}
+
+.expandedRow{
+background:#FFFFCC;
+}
+
+.spacer{
+clear:both;}

@@ -7,6 +7,7 @@ App::uses('AppModel', 'Model');
  * @property ZipAlias $ZipAlias
  */
 class Zip extends AppModel {
+    public $actsAs = array('Containable');
 /**
  * Display field
  *

@@ -1,10 +1,10 @@
 
-				<div class="main_txt">
-					<a href="#" class="btn_back" onClick="history.go(-1)">Back to Search Results</a>
-					<h1><?php echo $program['Program']['name'];?></h1>
-					<div class="txt_box">
-						<p><strong>Umbrella Agency:</strong> <?php echo $program['Agency']['name'];?></p>
-						<p><strong>Program Name:</strong> <?php echo $program['Program']['name'];?></p>
+                <div class="main_txt">
+                    <a href="#" class="btn_back" onClick="history.go(-1)">Back to Search Results</a>
+                    <h1><?php echo $program['Program']['name'];?></h1>
+                    <div class="txt_box">
+                        <p><strong>Umbrella Agency:</strong> <?php echo $program['Agency']['name'];?></p>
+                        <p><strong>Program Name:</strong> <?php echo $program['Program']['name'];?></p>
                         <p>
                             <?php if($program['Program']['clients_only'] == 1){?>
                                 <strong>Transportation for clients only</strong><br />
@@ -16,7 +16,7 @@
                         <?php if(!empty($program['Program']['description'])){?>
                             <p><?php echo $program['Program']['description'];?></p>
                         <?php }?>
-					</div>
+                    </div>
 
                     <?php if(isset($program['Service']) && !empty($program['Service'])){?>
                         <div class="txt_box">
@@ -30,7 +30,7 @@
                     <?php }?>
 
                     <div class="txt_box">
-                        <h2>Elgibility Requirements</h2>
+                        <h2>Eligibility Requirements</h2>
                         <?php if(isset($program['EligReqOption']) && !empty($program['EligReqOption'])){?>
                             <ul class="txt_list">
                                 <?php foreach($program['EligReqOption'] as $e){
@@ -45,7 +45,7 @@
                             <p>We do not have any information about this agency's eligibility requirements.<br />Please call or email '.$program['Agency']['name'].' for more information.</p>
                         <?php }?>
                     </div>
-					<?php if(isset($program['Fee']) && !empty($program['Fee'])){?>
+                    <?php if(isset($program['Fee']) && !empty($program['Fee'])){?>
                         <div class="txt_box txt_box_last">
                             <h2>Program Fees</h2>
                             <ul class="txt_list">
@@ -108,23 +108,23 @@
                             </ul>
                         </div>
                     <?php }?>
-				</div><!--end of main_txt-->
-				<div class="contact_box">
-				 <?php if(!empty($program['Program']['phone'])){
-        $contact[] = '<p><strong>Phone:</strong> '.$program['Program']['phone'].'</p>';
-    }
-    if(!empty($program['Program']['email'])){
-        $contact[] = '<p><strong>Email:</strong> <a href="mailto:'.$program['Program']['email'].'">'.$program['Program']['email'].'</a></p>';
-    }
-    if(!empty($program['Program']['url'])){
-        $contact[] = '<a class="btn_visit" href="'.(substr($program['Program']['url'], 0, 4) == 'http' ? '' : 'http://') . $program['Program']['url'].'">visit website</a>';
-    }
-    if(isset($contact)){
-        echo '<div class="contact_title">Contact</div>';
-        echo implode('', $contact);
-    }?>
-    <div class="contact_title contact_title_open_hours">Open Hours</div>
-    <?php foreach(array('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun') as $day){
-        echo '<p><b>'.ucfirst($day).':</b> '.$program['Program']['open_hours_'.$day].'</p>';
-    }?>
+                </div><!--end of main_txt-->
+                <div class="contact_box">
+                    <?php if(!empty($program['Program']['phone'])){
+                        $contact[] = '<p><strong>Phone:</strong> '.$program['Program']['phone'].'</p>';
+                    }
+                    if(!empty($program['Program']['email'])){
+                        $contact[] = '<p><strong>Email:</strong> <a href="mailto:'.$program['Program']['email'].'">'.$program['Program']['email'].'</a></p>';
+                    }
+                    if(!empty($program['Program']['url'])){
+                        $contact[] = '<a class="btn_visit" href="'.(substr($program['Program']['url'], 0, 4) == 'http' ? '' : 'http://') . $program['Program']['url'].'">visit website</a>';
+                    }
+                    if(isset($contact)){
+                        echo '<div class="contact_title">Contact</div>';
+                        echo implode('', $contact);
+                    }?>
+                    <div class="contact_title contact_title_open_hours">Open Hours</div>
+                    <?php foreach(array('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun') as $day){
+                        echo '<p><b>'.ucfirst($day).':</b> '.$program['Program']['open_hours_'.$day].'</p>';
+                    }?>
                 </div>

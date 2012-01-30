@@ -25,7 +25,7 @@ function initialize() {
     zoomControlOptions: {
         style: google.maps.ZoomControlStyle.SMALL
     },
-    minZoom: 7
+    minZoom: 6
   }
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   //directionsDisplay.setMap(map);

@@ -1,1 +1,0 @@
-<?php echo $this->Html->image('content.jpg');?>
