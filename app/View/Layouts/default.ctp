@@ -1,3 +1,4 @@
+<?php /*
 <!doctype html>
 
 <head>
@@ -101,7 +102,10 @@
                             </div>
                     </div><!--end of find_box-->
         <?php }?>
-
+*/?>
+    <?php
+    //pr(FULL_BASE_URL.dirname($this->base).'header-fix/');
+    readfile(FULL_BASE_URL.dirname($this->base).'header-fix/');?>
     <?php
     //require( '../../../wp-load.php' );
     //get_header();
