@@ -95,5 +95,5 @@ $(document).ready(function(){initialize();});
 
 </script>
 <div>
-  <div id="map_canvas" style="height:96px;width:200px;"></div>
+  <div id="map_canvas" style="height:96px;<!-- width:200px; -->"></div>
 </div>
