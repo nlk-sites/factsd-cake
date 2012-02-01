@@ -49,9 +49,9 @@
     <?php if(!empty($programs)){?>
         <div class="result_pager1">
             <?php
-            echo $this->Paginator->prev('&nbsp;', array('class' => 'page_prev'), null, array('class' => 'page_prev disabled page_prev_disabled'));
+            echo $this->Paginator->prev('&nbsp;', array('class' => 'page_prev', 'escape' => false), null, array('class' => 'page_prev disabled page_prev_disabled', 'escape' => false));
             echo $this->Paginator->numbers(array('separator' => '', 'class' => 'btn_page', 'first' => 1, 'last' => 1, 'modulus' => 3, 'ellipsis' => '<span>...</span>'));
-            echo $this->Paginator->next('&nbsp;', array('class' => 'page_next'), null, array('class' => 'page_next disabled page_next_disabled'));
+            echo $this->Paginator->next('&nbsp;', array('class' => 'page_next', 'escape' => false), null, array('class' => 'page_next disabled page_next_disabled', 'escape' => false));
             ?>
         </div>
     <?php }?>

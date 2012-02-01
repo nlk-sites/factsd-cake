@@ -64,16 +64,22 @@ class ProgramsController extends AppController {
         $joins = array();
         $addresses = array('origin' => null, 'destination' => null);
         $msgs = array();
-        if($this->data){
+        if($this->request->data){
+            if(isset($this->request->data['Program']['origin']) && $this->request->data['Program']['origin'] == 'Your pick up location'){
+                $this->request->data['Program']['origin'] = '';
+            }
+            if(isset($this->request->data['Program']['destination']) && $this->request->data['Program']['destination'] == 'Going to'){
+                $this->request->data['Program']['destination'] = '';
+            }
             $origin = '';
             $destination = '';
-            foreach($this->data['Program'] as $addresstype => $address){
+            foreach($this->request->data['Program'] as $addresstype => $address){
                 if(!in_array($addresstype, array('origin', 'destination'))){
                     continue;
                 }
-                if(isset($this->data['filter']) && $this->data['filter'] == 1){
-                    if(isset($this->data['Location'][$addresstype]) && !empty($this->data['Location'][$addresstype])){
-                        $$addresstype = explode(',', $this->data['Location'][$addresstype]);
+                if(isset($this->request->data['filter']) && $this->request->data['filter'] == 1){
+                    if(isset($this->request->data['Location'][$addresstype]) && !empty($this->request->data['Location'][$addresstype])){
+                        $$addresstype = explode(',', $this->request->data['Location'][$addresstype]);
                     }
                     continue;
                 }
@@ -120,8 +126,8 @@ class ProgramsController extends AppController {
                 $contains[] = 'ProgramDestZip';
                 $conditions['ProgramDestZip.zip_id'] = $destination;
             }
-            if(!empty($this->data['Service']['id'])){
-                $services = array_filter($this->data['Service']['id']);
+            if(!empty($this->request->data['Service']['id'])){
+                $services = array_filter($this->request->data['Service']['id']);
                 if(!empty($services)){
                     $service_programs = $this->Service->ProgramsService->find('list', array('fields' => array('ProgramsService.program_id'), 'conditions' => array('ProgramsService.service_id' => $services), 'group' => array('ProgramsService.program_id HAVING COUNT(DISTINCT(service_id)) = '.count($services))));
                     $conditions['Program.id'] = array_values($service_programs);
@@ -129,9 +135,9 @@ class ProgramsController extends AppController {
                     //$conditions['ProgramsService.service_id'] = $services;
                 }
             }
-            if(!empty($this->data['Fee']['fee'])){
+            if(!empty($this->request->data['Fee']['fee'])){
                 $joins[] = array('table'=>'fees', 'alias'=>'Fee', 'type'=>'LEFT', 'conditions'=>'Program.id=Fee.program_id');
-                switch($this->data['Fee']['fee']){
+                switch($this->request->data['Fee']['fee']){
                     case 1:
                         $conditions['Fee.fee_type_id'] = 9;
                         break;
@@ -148,10 +154,10 @@ class ProgramsController extends AppController {
                         break;
                 }
             }
-            if(!empty($this->data['Eligibility']['reqs'])){
-                if($this->data['Eligibility']['reqs'] == 1){
+            if(!empty($this->request->data['Eligibility']['reqs'])){
+                if($this->request->data['Eligibility']['reqs'] == 1){
                     $joins[] = array('table'=>'elig_req_options_programs', 'alias'=>'EligReqOptionsPrograms', 'type'=>'INNER', 'conditions'=>'Program.id=EligReqOptionsPrograms.program_id AND EligReqOptionsPrograms.elig_req_option_id <> 94');
-                }elseif($this->data['Eligibility']['reqs'] == 2){
+                }elseif($this->request->data['Eligibility']['reqs'] == 2){
                     $joins[] = array('table'=>'elig_req_options_programs', 'alias'=>'EligReqOptionsPrograms', 'type'=>'LEFT', 'conditions'=>'Program.id=EligReqOptionsPrograms.program_id AND EligReqOptionsPrograms.elig_req_option_id');
                     $conditions['OR'][] = 'EligReqOptionsPrograms.elig_req_option_id = 94';
                     $conditions['OR']['EligReqOptionsPrograms.elig_req_option_id'] = null;
@@ -167,7 +173,7 @@ class ProgramsController extends AppController {
         $this->paginate['fields'] = array('Agency.name', 'Program.id', 'Program.name', 'Program.description', 'Program.phone', 'Program.url', 'Program.email', 'Program.slug');
 
         if($this->RequestHandler->isAjax()){
-            if(!$this->data && $this->Session->check('search_options')){
+            if(!$this->request->data && $this->Session->check('search_options')){
                 $this->paginate = $this->Session->read('search_options');
             }
             $this->viewPath = 'Elements';
@@ -246,7 +252,8 @@ class ProgramsController extends AppController {
         }
         $contains = array('Agency', 'Service', 'EligReqOption'=>array('EligReq'), 'Fee', 'Review' => array('conditions' => array('Review.approved' => 1)));
         $program = $this->Program->find('first', array('conditions' => array('Program.id' => $id), 'contain' => $contains));
-        $this->set('program', $program);
+        $program_id = $id;
+        $this->set(compact('program', 'program_id'));
     }
     
 /**

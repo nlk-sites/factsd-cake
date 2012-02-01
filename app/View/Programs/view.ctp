@@ -1,6 +1,6 @@
 
                 <div class="main_txt">
-                    <a href="#" class="btn_back" onClick="history.go(-1)">Back to Search Results</a>
+                    <?php echo $this->Html->link('Back to Search Results', array('controller' => 'programs', 'action' => 'index'), array('class' => 'btn_back'));?>
                     <h1><?php echo $program['Program']['name'];?></h1>
                     <div class="txt_box">
                         <p><strong>Umbrella Agency:</strong> <?php echo $program['Agency']['name'];?></p>
@@ -138,13 +138,5 @@
                             </div>
                         <?php }
                     }?>
-                    <?php echo $this->Form->create('Review', array('action' => 'add', 'class' => 'review_form'));?>
-                        <fieldset>
-                            <div class="review_title">Write a review</div>
-                            <?php echo $this->Form->hidden('Review.program_id', array('value' => $program['Program']['id']));?>
-                            <?php echo $this->Form->input('Review.name', array('div' => FALSE, 'label' => 'Your Name', 'class' => 'input_txt'));?>
-                            <?php echo $this->Form->input('Review.review', array('div' => FALSE, 'label' => 'Your Review', 'cols' => FALSE, 'rows' => FALSE));?>
-                            <?php echo $this->Form->submit('Submit', array('div' => FALSE, 'class' => 'input_submit'));?>
-                        </fieldset>
-                    <?php echo $this->Form->end();?>
+                    <?php echo $this->element('add_reviews');?>
                 </div><!--end of review_box-->

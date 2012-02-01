@@ -12,6 +12,9 @@ class ReviewsController extends AppController {
         'maxLimit' => 99999,
         'sort' => 'name'
     );
+    
+    public $helpers = array('Js' => array('Jquery'));
+    public $components = array('RequestHandler');
 
     public function isAuthorized($admin) {
         if (parent::isAuthorized($admin)) {
@@ -24,7 +27,14 @@ class ReviewsController extends AppController {
     }
     
     public function beforeRender(){
-        $this->set('sidebar', $this->Review->getSidebarLinks($this->action, $this->name));
+        if(isset($this->params['prefix']) && $this->params['prefix'] == 'admin'){
+            $this->set('sidebar', $this->Review->getSidebarLinks($this->action, $this->name));
+        }
+    }
+    
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('add');
     }
 
 /**
@@ -59,7 +69,7 @@ class ReviewsController extends AppController {
             }
             $this->Review->create();
             if ($this->Review->save($this->request->data)) {
-                $this->Session->setFlash(__('The review has been submitted and will be viewable once it is approved.'));
+                $this->Session->setFlash(__('Your review has been submitted and will be posted shortly.'));
             } else {
                 $errors = $this->Review->validationErrors;
                 $msg = array();
@@ -67,18 +77,24 @@ class ReviewsController extends AppController {
                     foreach($errors as $e){
                         $msg = array_merge($msg, $e);
                     }
-                    $this->Session->setFlash('Please correct the following error'.(count($msg) > 1 ? 's' : '').':<ul><li>'.implode($msg, '</li><li>').'</li></ul>');
+                    if(count($msg) > 1){
+                        $this->Session->setFlash('<ul><li>'.implode($msg, '</li><li>').'</li></ul>');
+                    }else{
+                        $this->Session->setFlash(reset($msg));
+                    }
                 }else{
                     $this->Session->setFlash('There was an error saving your review.');
                 }
             }
             if(isset($this->request->data['Review']['program_id'])){
-                $this->redirect(array('controller' => 'programs', 'action' => 'view', $this->request->data['Review']['program_id']));
+                $this->set('program_id', $this->request->data['Review']['program_id']);
+                $this->render('/Elements/add_reviews', 'ajax');
+                //$this->redirect(array('controller' => 'programs', 'action' => 'view', $this->request->data['Review']['program_id'], 'admin' => FALSE, '#' => 'ReviewAddForm'));
             }else{
-                $this->redirect(array('controller' => 'programs', 'action' => 'index'));
+                $this->redirect(array('controller' => 'programs', 'action' => 'index', 'admin' => FALSE));
             }
         }else{
-            $this->redirect(array('controller' => 'programs', 'action' => 'index'));
+            $this->redirect(array('controller' => 'programs', 'action' => 'index', 'admin' => FALSE));
         }
     }
 
