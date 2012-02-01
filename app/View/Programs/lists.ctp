@@ -6,9 +6,9 @@
             </div>
             <h4>FACT is your source for information about public and private specialized transportation providers for seniors and people with disabilities.</h4>
         </div>
-        <img src="images/media/img1.jpg" width="603" height="276" alt=""/>
+        <img src="http://fact.ninthlink.net/wp-content/themes/factsd/images/media/img1.jpg" width="603" height="276" alt=""/>
         <div class="ban_tag">
-            <img src="images/media/ban_ico2.png" width="154" height="193" alt="" />
+            <img src="http://fact.ninthlink.net/wp-content/themes/factsd/images/media/ban_ico2.png" width="154" height="193" alt="" />
         </div>
     </div><!--cont_head-->
     <?php if(!empty($open_programs)){?>
