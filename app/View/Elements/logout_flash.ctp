@@ -1,1 +1,1 @@
-<div id="flashMessage" class="message" style="margin-bottom:9px;"><?php echo $message; ?><div style="padding-top:3px;"><?php echo $this->Html->link('Go to main site', '/programs');?></div></div>
+<div id="flashMessage" class="message" style="margin-bottom:9px;"><?php echo $message; ?><div style="padding-top:3px;"><?php echo $this->Html->link('Go to main site', array('controller' => 'programs', 'action' => 'index'));?></div></div>

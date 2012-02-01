@@ -7,7 +7,7 @@
         foreach($sidebar['pages'] as $p_name => $p_info){
             $title = $this->Html->link($p_name, $p_info['link_data']);
             $sub = array();
-            if($this->params['controller'] == $p_info['link_data']['controller'] && $this->action == $p_info['link_data']['action'] && (!isset($p_info['second_param']) || $p_info['second_param'] == $this->params['pass'][1])){
+            if($this->params['controller'] == $p_info['link_data']['controller'] && $this->action == $p_info['link_data']['action'] && (!isset($p_info['first_param']) || ((!isset($this->params['pass'][0]) && $p_info['first_param'] === FALSE) || ($p_info['first_param'] !== FALSE && isset($this->params['pass'][0]) && !is_null($p_info['first_param']) && $p_info['first_param'] == $this->params['pass'][0]))) && (!isset($p_info['second_param']) || $p_info['second_param'] == $this->params['pass'][1])){
                 $title = $p_name;
             }
             if(isset($p_info['subpages'])){

@@ -143,6 +143,13 @@ class Program extends AppModel {
             'fields' => '',
             'order' => ''
         ),
+        'Review' => array(
+            'className' => 'Review',
+            'foreignKey' => 'program_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        )
         /*
         'ProgramDestZip' => array(
             'className' => 'ProgramDestZip',

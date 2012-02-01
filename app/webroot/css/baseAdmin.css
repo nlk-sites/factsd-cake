@@ -681,7 +681,7 @@ div.no_data_table p, div.no_data_table p a {
 div.pager_results_per_page { float: right; }
 
 div.text, div.textarea, div.password {padding-right:6px;}
-div.text input, div.password input {width:100%;}
+div.text input, div.password input, div.textarea textarea {width:100%;}
 
 table.list th a.asc:after {content: url('../img/admin/asc.png'); padding-left: 5px;}
 table.list th a.desc:after {content: url('../img/admin/desc.png'); padding-left: 5px;}

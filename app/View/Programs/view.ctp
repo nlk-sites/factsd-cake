@@ -128,3 +128,23 @@
                         echo '<p><b>'.ucfirst($day).':</b> '.$program['Program']['open_hours_'.$day].'</p>';
                     }?>
                 </div>
+                <div class="review_box">
+                    <?php if(isset($program['Review']) && !empty($program['Review'])){?>
+                        <div class="cont_title">Review</div>
+                        <?php foreach($program['Review'] as $r){?>
+                            <div class="single_review">
+                                <p><?php echo strip_tags($r['review']);?></p>
+                                <p class="review_author"><span>Posted by: <?php echo strip_tags($r['name']);?></span> | <span><?php echo date('F j, Y \a\t g:i A', strtotime($r['created']));?></span></p>
+                            </div>
+                        <?php }
+                    }?>
+                    <?php echo $this->Form->create('Review', array('action' => 'add', 'class' => 'review_form'));?>
+                        <fieldset>
+                            <div class="review_title">Write a review</div>
+                            <?php echo $this->Form->hidden('Review.program_id', array('value' => $program['Program']['id']));?>
+                            <?php echo $this->Form->input('Review.name', array('div' => FALSE, 'label' => 'Your Name', 'class' => 'input_txt'));?>
+                            <?php echo $this->Form->input('Review.review', array('div' => FALSE, 'label' => 'Your Review', 'cols' => FALSE, 'rows' => FALSE));?>
+                            <?php echo $this->Form->submit('Submit', array('div' => FALSE, 'class' => 'input_submit'));?>
+                        </fieldset>
+                    <?php echo $this->Form->end();?>
+                </div><!--end of review_box-->

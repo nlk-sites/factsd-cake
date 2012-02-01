@@ -31,7 +31,7 @@
                 }
                 $pages['programs'] = array('fees');
                 if($user_level >= 1000){
-                    $pages = array_merge($pages, array('elig_reqs' => array(),'services' => array(),'zip_aliases'=>array('zip_alias_types', 'regions')));
+                    $pages = array_merge($pages, array('elig_reqs' => array(),'services' => array(),'zip_aliases'=>array('zip_alias_types', 'regions'), 'reviews' => array()));
                 }
                 if($user_level >= 2000){
                     $pages['admins'] = array();

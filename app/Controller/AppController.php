@@ -55,26 +55,6 @@ class AppController extends Controller {
 
     function beforeFilter() {
         if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') {
-            /*
-            if(in_array($this->name, array('AgencyTypes', 'AgencyAliases'))){
-                $name = 'Agencies';
-            }elseif($this->name == 'Fees'){
-                $name = 'Programs';
-            }else $name = $this->name;
-            if((in_array($this->name, array('Programs', 'Agencies')) && !in_array($this->action, array('admin_add', 'admin_index'))) || in_array($this->name, array('Fees', 'AgencyAliases'))){
-                $this->set('sidebar', strtolower($name).'_edit');
-            }elseif(in_array($this->name, array('ZipAliases', 'ZipAliasTypes', 'Regions'))){
-                $this->set('sidebar', 'zipaliases_index');
-            }elseif($this->name == 'Programs' && isset($this->params['pass'][0]) && !empty($this->params['pass'][0])){
-                    $this->set('sidebar', 'agencies_edit');
-            }else{
-                //if(in_array($this->name, array('Programs', 'Agencies', 'AgencyTypes', 'AgencyAliases', 'Services'))){
-                if($this->name == 'Programs' && isset($this->params['pass'][0]) && !empty($this->params['pass'][0])){
-                    $this->set('sidebar', 'agencies_edit');
-                }else{
-                    $this->set('sidebar', strtolower($name).'_index');
-                }
-            }*/
             $this->layout = 'admin';
         } 
         $this->Auth->allow('index', 'view', 'display');
@@ -100,9 +80,6 @@ class AppController extends Controller {
         if(isset($info['program_id'])){
             $program_data = $this->Program->find('first', array('conditions' => array('Program.id' => $info['program_id']), 'contain' => array('Agency')));
             $info['agency_id'] = $program_data['Program']['agency_id'];
-            //if($this->name != 'Programs' && $this->name != 'Agencies'){
-            //    $crumbs['/admin/'.$this->params->controller.'/index/'.$info['program_id']] = $this->name;
-            //}
             $crumbs['/admin/programs/edit/'.$info['program_id']] = $program_data['Program']['name'];
         }elseif($this->name == 'Programs'){
             $crumbs['/admin/programs'.(isset($info['agency_id']) && !empty($info['agency_id']) ? '/index/'.$info['agency_id'] : '')] = 'All Programs';

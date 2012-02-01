@@ -244,7 +244,7 @@ class ProgramsController extends AppController {
         if (!$this->Program->exists()) {
             throw new NotFoundException(__('Invalid program'));
         }
-        $contains = array('Agency', 'Service', 'EligReqOption'=>array('EligReq'), 'Fee');
+        $contains = array('Agency', 'Service', 'EligReqOption'=>array('EligReq'), 'Fee', 'Review' => array('conditions' => array('Review.approved' => 1)));
         $program = $this->Program->find('first', array('conditions' => array('Program.id' => $id), 'contain' => $contains));
         $this->set('program', $program);
     }
@@ -260,15 +260,9 @@ class ProgramsController extends AppController {
             $this->set('agency_data', $this->Program->Agency->find('first', array('conditions' => array('Agency.id' => $agency_id))));
             $this->paginate['conditions']['agency_id'] = $agency_id;
         }
-    //        public $paginate = array(
-    //    'limit' => 20,
-    //    'maxLimit' => 999
-    //);
         if(isset($this->passedArgs['limit']) && $this->passedArgs['limit'] == 'all'){
             $this->request->params['named']['limit'] = 99999;
         }
-        //prd($this->request);
-      //prd($this->paginate);
         $this->paginate['contain'] = array('Agency');
         $this->set('programs', $this->paginate());
         $this->set('breadcrumbs', $this->get_breadcrumbs(array('agency_id' => $agency_id)));
