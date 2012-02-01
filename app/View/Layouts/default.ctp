@@ -112,7 +112,7 @@
 
     </div><!--end of content-->
 
-
+    <?php readfile(FULL_BASE_URL.dirname($this->base).'footer-fix/');?>
     <?php /*
     <div id="footer">
         <div class="footer_row1">
