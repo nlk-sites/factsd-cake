@@ -29,6 +29,7 @@ class AgencyAliasesController extends AppController {
     }
     
     public function beforeRender(){
+        parent::beforeRender();
         $extra = array();
         if($this->action == 'admin_edit'){
             $extra['agency_id'] = $this->AgencyAlias->field('agency_id', array('AgencyAlias.id' => $this->request->params['pass'][0]));

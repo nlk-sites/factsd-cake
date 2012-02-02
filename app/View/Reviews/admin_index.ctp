@@ -43,12 +43,14 @@
                 <td><?php echo h($review['Review']['name']); ?>&nbsp;</td>
                 <td><?php echo ($review['Review']['approved'] == 1 ? 'Yes' : 'No'); ?>&nbsp;</td>
                 <td><?php echo substr($review['Review']['review'], 0, 60).(strlen($review['Review']['review']) > 60 ? '...' : '');?>&nbsp;</td>
-                <td><?php echo date('M j, Y', strtotime($review['Review']['modified'])); ?>&nbsp;</td>
                 <td><?php echo date('M j, Y', strtotime($review['Review']['created'])); ?>&nbsp;</td>
+                <td><?php echo date('M j, Y', strtotime($review['Review']['modified'])); ?>&nbsp;</td>
                 <td class="actions" nowrap>
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $review['Review']['id'])); ?>
+                    <?php echo $this->Html->link(__('View'), array('action' => 'admin_view', $review['Review']['id'])); ?>
                     |
-                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $review['Review']['id']), null, __('Are you sure you want to delete this review of %s by %s?', $review['Program']['name'], $review['Review']['name'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'admin_edit', $review['Review']['id'])); ?>
+                    |
+                    <?php echo $this->Form->postLink(__('Delete'), array('action' => 'admin_delete', $review['Review']['id']), null, __('Are you sure you want to delete this review of %s by %s?', $review['Program']['name'], $review['Review']['name'])); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

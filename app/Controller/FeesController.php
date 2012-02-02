@@ -20,6 +20,7 @@ class FeesController extends AppController {
     }
     
     public function beforeRender(){
+        parent::beforeRender();
         $extra = array();
         if(isset($this->request->params['pass'][0]) && !empty($this->request->params['pass'][0])){
             if($this->action == 'admin_edit'){

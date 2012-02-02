@@ -109,6 +109,7 @@ class ZipAlias extends AppModel {
                     'controller' => 'zip_aliases',
                     'action' => 'admin_index',
                 ),
+                'first_param' => FALSE,
                 'subpages' => array(
                     'Add New Zip Alias' => array(
                         'link_data' => array(
@@ -147,7 +148,31 @@ class ZipAlias extends AppModel {
                 )
             )
         );
+        if(isset($extra['problem_zip_aliases']) && $extra['problem_zip_aliases'] > 0){
+            $pages = array_merge(array( 'Problem Zip Aliases ('.$extra['problem_zip_aliases'].')' => array(
+                'link_data' => array(
+                    'controller' => 'zip_aliases',
+                    'action' => 'admin_index',
+                    1
+                ),
+                'first_param' => 1
+                )), $pages);
+        }
         return compact('name', 'pages');
+    }
+    
+    function findProblems(){
+        $zip_alias_zips = $this->ZipAliasesZip->find('list', array('fields' => array('ZipAliasesZip.zip_alias_id', 'ZipAliasesZip.zip_alias_id')));
+        $duplicate_names = $this->find('all', array('group' => 'ZipAlias.name HAVING count(*) > 1', 'recursive' => -1, 'fields' => array('GROUP_CONCAT(ZipAlias.id) as duplicate_id')));
+        $problem_ids = array();
+        if(!empty($duplicate_names)){
+            foreach($duplicate_names as $d){
+                $problem_ids = array_merge($problem_ids, explode(',', $d[0]['duplicate_id']));
+            }
+        }
+        $zip_alias_zips = array_unique(array_diff($zip_alias_zips, $problem_ids));
+        sort($zip_alias_zips);
+        return array_unique($zip_alias_zips);
     }
 
 }

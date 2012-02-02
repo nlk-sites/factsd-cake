@@ -31,7 +31,7 @@
                 }
                 $pages['programs'] = array('fees');
                 if($user_level >= 1000){
-                    $pages = array_merge($pages, array('elig_reqs' => array(),'services' => array(),'zip_aliases'=>array('zip_alias_types', 'regions'), 'reviews' => array()));
+                    $pages = array_merge($pages, array('elig_reqs' => array(),'services' => array(),'zip_aliases'=>array('zip_aliases', 'zip_alias_types', 'regions'), 'reviews' => array()));
                 }
                 if($user_level >= 2000){
                     $pages['admins'] = array();
@@ -40,6 +40,7 @@
                 }
                 
                 foreach($pages as $page => &$assoc){
+                    $class = array();
                     if($page=='admins'){
                         $title='Users';
                     }elseif($page=='elig_reqs'){
@@ -50,10 +51,16 @@
                         $title = 'My Account';
                     }else $title=ucwords(str_replace('_', ' ', $page));
                     $contName=$this->params['controller'];
-                    if($contName==$page || in_array($contName, $assoc)){
-                        $assoc = '<a href="'.$this->Html->url('/admin/'.$page).'"><strong>'.$title.'</strong></a>';
+                    if($page == 'reviews' && isset($new_reviews)){
+                        $class[] = 'menu_highlight';
+                    }elseif($page == 'zip_aliases' && isset($problem_zip_aliases) && !empty($problem_zip_aliases)){
+                        $class[] = 'menu_highlight';
+                        $page = 'zip_aliases/index/1';
                     }
-                    else $assoc = '<a href="'.$this->Html->url('/admin/'.$page).'">'.$title.'</a>';
+                    if($contName==$page || in_array($contName, $assoc)){
+                        $class[] = 'menu_active';
+                    }
+                    $assoc = $this->Html->link($title, '/admin/'.$page, array('class' => implode(' ', $class)));
                 }
                 echo implode(' | ', $pages);
                 ?>

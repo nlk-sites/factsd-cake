@@ -18,6 +18,7 @@ class ServicesController extends AppController {
     }
     
     public function beforeRender(){
+        parent::beforeRender();
         $this->set('sidebar', $this->Service->getSidebarLinks($this->action, $this->name));
     }
 

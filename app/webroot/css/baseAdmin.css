@@ -685,3 +685,6 @@ div.text input, div.password input, div.textarea textarea {width:100%;}
 
 table.list th a.asc:after {content: url('../img/admin/asc.png'); padding-left: 5px;}
 table.list th a.desc:after {content: url('../img/admin/desc.png'); padding-left: 5px;}
+
+#navigation .menu_active {font-weight: bold;}
+#navigation .menu_highlight {color: #CC0000;}

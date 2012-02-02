@@ -36,6 +36,7 @@ class AgenciesController extends AppController {
     }
     
     public function beforeRender(){
+        parent::beforeRender();
         $extra = array();
         if($this->action == 'admin_edit'){
             $agency_data = $this->Agency->find('first', array('conditions' => array('Agency.id' => $this->request->params['pass'][0]), 'contain' => array('AgencyPhone')));

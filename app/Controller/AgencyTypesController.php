@@ -8,12 +8,7 @@ App::uses('AppController', 'Controller');
 class AgencyTypesController extends AppController {
     
     public function beforeRender(){
-        //$extra = array();
-        //if($this->action == 'admin_edit'){
-        //    $agency_data = $this->Agency->find('first', array('conditions' => array('Agency.id' => $id), 'contain' => array('AgencyPhone')));
-        //    $this->set('agency_data', $agency_data);
-        //    $extra['name'] = $agency_data['Agency']['name'];
-        //}
+        parent::beforeRender();
         $this->set('sidebar', $this->AgencyType->Agency->getSidebarLinks($this->action, $this->name));
     }
 

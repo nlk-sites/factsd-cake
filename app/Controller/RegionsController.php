@@ -8,6 +8,7 @@ App::uses('AppController', 'Controller');
 class RegionsController extends AppController {
 
     public function beforeRender(){
+        parent::beforeRender();
         $this->set('sidebar', $this->Region->ZipAlias->getSidebarLinks($this->action, $this->name));
     }
 

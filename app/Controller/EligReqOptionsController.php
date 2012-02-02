@@ -18,6 +18,7 @@ class EligReqOptionsController extends AppController {
     }
     
     public function beforeRender(){
+        parent::beforeRender();
         $this->set('sidebar', $this->EligReqOption->EligReq->getSidebarLinks($this->action, $this->name));
     }
 

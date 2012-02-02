@@ -8,6 +8,7 @@ App::uses('AppController', 'Controller');
 class ZipAliasTypesController extends AppController {
 
     public function beforeRender(){
+        parent::beforeRender();
         $this->set('sidebar', $this->ZipAliasType->ZipAlias->getSidebarLinks($this->action, $this->name));
     }
 

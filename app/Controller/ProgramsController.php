@@ -22,6 +22,7 @@ class ProgramsController extends AppController {
     }
     
     public function beforeRender(){
+        parent::beforeRender();
         if(isset($this->params['prefix']) && $this->params['prefix'] == 'admin'){
             $extra = array();
             if(($this->action == 'admin_index' || $this->action == 'admin_add') && isset($this->request->params['pass'][0]) && !empty($this->request->params['pass'][0])){

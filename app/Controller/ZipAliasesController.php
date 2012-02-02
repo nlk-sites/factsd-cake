@@ -14,7 +14,9 @@ class ZipAliasesController extends AppController {
     );
     
     public function beforeRender(){
-        $this->set('sidebar', $this->ZipAlias->getSidebarLinks($this->action, $this->name));
+        $problem_zip_aliases = parent::beforeRender();
+        $extra['problem_zip_aliases'] = $problem_zip_aliases['problem_zip_aliases'];
+        $this->set('sidebar', $this->ZipAlias->getSidebarLinks($this->action, $this->name, $extra));
     }
 
 /**
@@ -22,11 +24,13 @@ class ZipAliasesController extends AppController {
  *
  * @return void
  */
-    public function admin_index() {
+    public function admin_index($problem = 0) {
+        if($problem == 1){
+            $this->paginate['conditions'] = array('not' => array('ZipAlias.id' => $this->ZipAlias->findProblems()));
+        }
         $this->set('zipAliases', $this->paginate());
-        $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Zip Aliases', 'no_agency' => TRUE)));
+        $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Zip Aliases'.($problem == 1 ? ' With Duplicate Names and/or Without Zips' : ''), 'no_agency' => TRUE)));
     }
-    
     
     public function admin_map_address($id){
         $this->ZipAlias->id = $id;

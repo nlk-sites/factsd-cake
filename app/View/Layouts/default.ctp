@@ -112,6 +112,7 @@
 
     </div><!--end of content-->
 
+    <?php echo $this->Js->writeBuffer();?>
     <?php readfile(FULL_BASE_URL.dirname($this->base).'footer-fix/');?>
     <?php /*
     <div id="footer">

@@ -19,6 +19,7 @@ class AdminsController extends AppController {
     }
     
     public function beforeRender(){
+        parent::beforeRender();
         if($this->Auth->user('user_level_id') >= 2000){
             $this->set('sidebar', $this->Admin->getSidebarLinks($this->action, $this->name));
         }else{

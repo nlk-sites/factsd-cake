@@ -10,7 +10,8 @@ class ReviewsController extends AppController {
     public $paginate = array(
         'limit' => 20,
         'maxLimit' => 99999,
-        'sort' => 'name'
+        'sort' => 'created',
+        'direction' => 'desc'
     );
     
     public $helpers = array('Js' => array('Jquery'));
@@ -27,6 +28,7 @@ class ReviewsController extends AppController {
     }
     
     public function beforeRender(){
+        parent::beforeRender();
         if(isset($this->params['prefix']) && $this->params['prefix'] == 'admin'){
             $this->set('sidebar', $this->Review->getSidebarLinks($this->action, $this->name));
         }
@@ -132,6 +134,30 @@ class ReviewsController extends AppController {
         $programs = $this->Review->Program->find('list');
         $this->set(compact('programs', 'review'));
         $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Review of '.$review['Program']['name'].' by '.$review['Review']['name'], 'no_agency' => TRUE)));
+    }
+    
+    public function admin_view($id = null) {
+        $this->Review->id = $id;
+        if (!$this->Review->exists()) {
+            throw new NotFoundException(__('Invalid review'));
+        }
+        $review = $this->Review->read(null, $id);
+        $this->set(compact('review'));
+        $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Review of '.$review['Program']['name'].' by '.$review['Review']['name'], 'no_agency' => TRUE)));
+    }
+    
+    public function admin_approve($approved, $review_id){
+        $this->Review->id = $review_id;
+        if (!$this->Review->exists()) {
+            throw new NotFoundException(__('Invalid review'));
+        }
+        $approved = ($approved == 0 ? 0 : 1);
+        if($this->Review->saveField('approved', $approved)){
+            $this->Session->setFlash(__('The review has been '.($approved == 1 ? 'approved' : 'un-approved').'.'));
+        }else{
+            $this->Session->setFlash(__('There was an error '.($approved == 1 ? 'approving' : 'un-approving').' this review.  Please try again.'));
+        }
+        $this->redirect(array('action' => 'admin_view', $review_id));
     }
 
 /**

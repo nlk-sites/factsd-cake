@@ -25,6 +25,7 @@ class AgencyPhonesController extends AppController {
     }
     
     public function beforeRender(){
+        parent::beforeRender();
         $extra['agency_id'] = $this->AgencyPhone->field('agency_id', array('AgencyPhone.id' => $this->request->params['pass'][0]));
         $extra['name'] = $this->AgencyPhone->Agency->field('name', array('Agency.id' => $extra['agency_id']));
         $this->set('sidebar', $this->AgencyPhone->Agency->getSidebarLinks($this->action, $this->name, $extra));

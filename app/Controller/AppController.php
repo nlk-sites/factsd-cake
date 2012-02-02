@@ -33,7 +33,7 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/view/957/The-App-Controller
  */
 class AppController extends Controller {
-    public $uses = array('Program');
+    public $uses = array('Program', 'ZipAlias');
     public $components = array(
         'Session',
         'Auth' => array(
@@ -58,6 +58,21 @@ class AppController extends Controller {
             $this->layout = 'admin';
         } 
         $this->Auth->allow('index', 'view', 'display');
+    }
+    
+    function beforeRender(){
+        $return = array();
+        if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') {
+            $problem_zip_aliases = $this->ZipAlias->find('count', array('conditions' => array('not' => array('ZipAlias.id' => $this->ZipAlias->findProblems())), 'recursive' => -1));
+            if($problem_zip_aliases > 0){
+                $this->set('problem_zip_aliases', $problem_zip_aliases);
+                $return['problem_zip_aliases'] = $problem_zip_aliases;
+            }
+            if($this->Program->Review->hasAny(array('Review.approved' => 0))){
+                $this->set('new_reviews', TRUE);
+            }
+        }
+        return $return;
     }
     
     public function isAuthorized($admin) {
