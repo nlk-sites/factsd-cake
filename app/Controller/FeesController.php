@@ -76,7 +76,6 @@ class FeesController extends AppController {
         $program_info = $this->Program->find('first', array('conditions' => array('Program.id' => $program_id), 'contain' => array('Agency')));
         $this->set(compact('program_info', 'feeTypes'));
         $this->set('breadcrumbs', $this->get_breadcrumbs(array('program_id' => $program_id, 'cur_title' => 'New Fee')));
-        $this->set(compact('agencies', 'providerTypes', 'eligReqOptions', 'searchRequests', 'services'));
         $this->render('admin_edit');
     }
 
@@ -148,25 +147,4 @@ class FeesController extends AppController {
         $this->set(compact('fees', 'program_info'));
         $this->set('breadcrumbs', $this->get_breadcrumbs(array('program_id' => $program_id, 'cur_title' => 'Fees')));
     }
-    /*
-    function get_breadcrumbs($info=array()){
-        $crumbs = array();
-        if(isset($info['cur_title'])){
-            $crumbs[''] = $info['cur_title'];
-        }
-        if(isset($info['program_id'])){
-            $program_data = $this->Program->find('first', array('conditions' => array('Program.id' => $info['program_id']), 'contain' => array('Agency')));
-            $info['agency_id'] = $program_data['Program']['agency_id'];
-            $crumbs['/admin/programs/edit/'.$info['program_id']] = $program_data['Program']['name'];
-        }
-        if(isset($info['agency_id']) && !empty($info['agency_id'])){
-            $crumbs['/admin/agencies/edit/'.$info['agency_id']] = $this->Program->Agency->field('name', array('Agency.id' => $info['agency_id']));
-        }else{
-            $crumbs['/admin/agencies'] = 'All Agencies';
-        }
-        $crumbs = array_reverse($crumbs, TRUE);
-        $last_crumb = array_pop($crumbs);
-        $crumbs[''] = $last_crumb;
-        return $crumbs;
-    }*/
 }

@@ -5,7 +5,6 @@ App::uses('AppModel', 'Model');
  *
  * @property EligReq $EligReq
  * @property Program $Program
- * @property SearchRequest $SearchRequest
  */
 class EligReqOption extends AppModel {
 /**
@@ -88,21 +87,6 @@ class EligReqOption extends AppModel {
             'joinTable' => 'elig_req_options_programs',
             'foreignKey' => 'elig_req_option_id',
             'associationForeignKey' => 'program_id',
-            'unique' => true,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'finderQuery' => '',
-            'deleteQuery' => '',
-            'insertQuery' => ''
-        ),
-        'SearchRequest' => array(
-            'className' => 'SearchRequest',
-            'joinTable' => 'elig_req_options_search_requests',
-            'foreignKey' => 'elig_req_option_id',
-            'associationForeignKey' => 'search_request_id',
             'unique' => true,
             'conditions' => '',
             'fields' => '',

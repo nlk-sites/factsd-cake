@@ -9,7 +9,6 @@ App::uses('AppModel', 'Model');
  * @property ProgramDestZip $ProgramDestZip
  * @property ProgramOrigZip $ProgramOrigZip
  * @property EligReqOption $EligReqOption
- * @property SearchRequest $SearchRequest
  * @property Service $Service
  */
 class Program extends AppModel {
@@ -191,21 +190,6 @@ class Program extends AppModel {
             'joinTable' => 'elig_req_options_programs',
             'foreignKey' => 'program_id',
             'associationForeignKey' => 'elig_req_option_id',
-            'unique' => true,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'finderQuery' => '',
-            'deleteQuery' => '',
-            'insertQuery' => ''
-        ),
-        'SearchRequest' => array(
-            'className' => 'SearchRequest',
-            'joinTable' => 'programs_search_requests',
-            'foreignKey' => 'program_id',
-            'associationForeignKey' => 'search_request_id',
             'unique' => true,
             'conditions' => '',
             'fields' => '',
