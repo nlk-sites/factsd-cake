@@ -20,7 +20,7 @@
 
                     <?php if(isset($program['Service']) && !empty($program['Service'])){?>
                         <div class="txt_box">
-                            <h2>Program Services</h2>
+                            <h3>Program Services</h3>
                             <ul class="txt_list">
                                 <?php foreach($program['Service'] as $s){?>
                                     <li><?php echo $s['name'];?></li>
@@ -30,7 +30,7 @@
                     <?php }?>
 
                     <div class="txt_box">
-                        <h2>Eligibility Requirements</h2>
+                        <h3>Eligibility Requirements</h3>
                         <?php if(isset($program['EligReqOption']) && !empty($program['EligReqOption'])){?>
                             <ul class="txt_list">
                                 <?php foreach($program['EligReqOption'] as $e){
@@ -47,7 +47,7 @@
                     </div>
                     <?php if(isset($program['Fee']) && !empty($program['Fee'])){?>
                         <div class="txt_box txt_box_last">
-                            <h2>Program Fees</h2>
+                            <h3>Program Fees</h3>
                             <ul class="txt_list">
                                 <?php foreach($program['Fee'] as $f){?>
                                 <li>
