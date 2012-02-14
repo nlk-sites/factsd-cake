@@ -102,8 +102,8 @@ function hide_address_select(loc_type){
 
 function show_location_select(link, loc_type, address){
     hide_address_select(loc_type);
-    var trigger_offset_x=link.offset().left-140;
-    var trigger_offset_y=link.offset().top-100;
+    var trigger_offset_x=link.offset().left-120;
+    var trigger_offset_y=link.offset().top-80;
     $('#select_'+address+'_'+loc_type).css({"left":trigger_offset_x, "top":trigger_offset_y}).fadeIn(200);
     return false;
 }
