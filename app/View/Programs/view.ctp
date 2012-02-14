@@ -130,7 +130,7 @@
                 </div>
                 <div class="review_box">
                     <?php if(isset($program['Review']) && !empty($program['Review'])){?>
-                        <div class="cont_title">Review</div>
+                        <div class="cont_title"><span>Review</span></div>
                         <?php foreach($program['Review'] as $r){?>
                             <div class="single_review">
                                 <p><?php echo strip_tags($r['review']);?></p>
