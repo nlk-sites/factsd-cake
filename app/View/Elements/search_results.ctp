@@ -7,9 +7,10 @@
         <?php foreach($addresses as $address_type => $address){
             if(is_array($address)){?>
                 set_address_options('<?php echo ucfirst($address_type);?>', <?php echo json_encode($address);?>);
-                <?php unset($addresses[$address_type]);?>
-            <?php }?>
-            $('#Address<?php echo ucfirst($address_type);?>').val("<?php echo (is_array($address) ? '' : $address);?>");
+                <?php unset($addresses[$address_type]);
+                $address = '';
+            }?>
+            $('#Address<?php echo ucfirst($address_type);?>').val("<?php echo $address;?>");
         <?php }?>
         calcRoute();
         <?php if(count(array_filter($addresses)) == 2){
