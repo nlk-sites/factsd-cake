@@ -20,7 +20,7 @@
             foreach($open_programs as $i => $o){
                 if(($i % $num_rows) == 0){?>
                     </ul>
-                    <ul class="col<?php echo ceil($i % 3);?> col">
+                    <ul class="col<?php echo ceil($i % 3)+1;?> col">
                 <?php }?>
                 <li><?php echo $this->Html->link($o['Program']['name'], array('action' => 'view', $o['Program']['slug']));?></li>
             <?php }?>                   
@@ -35,7 +35,7 @@
             foreach($closed_programs as $i => $o){
                 if(($i % $num_rows) == 0){?>
                     </ul>
-                    <ul class="col<?php echo ceil($i % 3);?> col">
+                    <ul class="col<?php echo ceil($i % 3)+1;?> col">
                 <?php }?>
                 <li><?php echo $this->Html->link($o['Program']['name'], array('action' => 'view', $o['Program']['slug']));?></li>
             <?php }?>
