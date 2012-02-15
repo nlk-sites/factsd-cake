@@ -1,3 +1,4 @@
+<?php /*
 <!doctype html>
 
 <head>
@@ -101,8 +102,8 @@
                             </div>
                     </div><!--end of find_box-->
         <?php }?>
-
-    <?php /*readfile(FULL_BASE_URL.dirname($this->base).'header-fix/');*/?>
+*/?>
+    <?php readfile(FULL_BASE_URL.dirname($this->base).'header-fix/');?>
         <div class="cont_box">
             <?php echo $this->Session->flash(); ?>
 
@@ -112,7 +113,8 @@
     </div><!--end of content-->
 
     <?php echo $this->Js->writeBuffer();?>
-    <?php /*readfile(FULL_BASE_URL.dirname($this->base).'footer-fix/');*/?>
+    <?php readfile(FULL_BASE_URL.dirname($this->base).'footer-fix/');?>
+    <?php /*
     <div id="footer">
         <div class="footer_row1">
             <div class="footer_block">
@@ -177,3 +179,4 @@
     <?php echo $this->element('sql_dump'); ?>
 </body>
 </html>
+     */?>

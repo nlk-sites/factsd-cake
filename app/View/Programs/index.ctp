@@ -1,66 +1,4 @@
-<div class="cont_box_inside">
-    <?php echo $this->Form->create('Program');?>
-    <?php foreach($locations as $zip_type => $zips){
-        echo $this->Form->hidden('Location.'.$zip_type, array('value' => (is_array($zips) ? implode(',', $zips) : $zips)));
-    }?>
-    <?php foreach($addresses as $address_type => $addresses){
-        echo $this->Form->hidden('Address.'.$address_type, array('value' => (is_array($addresses) ? '' : $addresses)));
-    }?>
-    <div id="select_address_Origin" class="pop_location">
-        <div class="pop_arrow">arrow</div>
-        <a href="#" class="pop_close">close</a>
-        <div class="pop_title">Did you mean:</div>
-        <ul class="select_address_ul"></ul>
-    </div>
-    <div id="select_address_Destination" class="pop_location">
-        <div class="pop_arrow">arrow</div>
-        <a href="#" class="pop_close">close</a>
-        <div class="pop_title">Did you mean:</div>
-        <ul class="select_address_ul"></ul>
-    </div>
-    <div class="sidebar">
-        <div class="map"><?php echo $this->element('map');?></div>
-        <div id="trip_duration"></div>
-        <?php echo $this->Html->link('View driving directions', 'http://maps.google.com', array('id' => 'map_route_link', 'class' => 'map_view', 'style' => 'display:none', 'target' => '_blank'));?><br />
-        <?php echo $this->Html->link('View public transit routes', 'http://maps.google.com?f=d&dirflg=r', array('id' => 'map_pub_route_link', 'style' => 'display:none', 'class' => 'map_view', 'target' => '_blank'));?>
-        <div class="title_option">FILTER OPTIONS</div>
-        <div class="side_block">
-            <div class="side_title">Specific Services You Require</div>
-            <?php $i = 1;foreach($services as $service_id => $service_label){?>
-                <div class="side_row<?php echo ($i++ > 5 ? ' more_services" style="display:none;' : '');?>">
-                    <?php echo $this->Form->input('Service.id.'.$service_id, array('type'=>'checkbox', 'class' => 'input_checkbox', 'label'=>$service_label, 'value' => $service_id));?>
-                </div>
-            <?php }?>
-            <a href='#' class="btn_more" onClick="$('div.more_services').toggle();return false;">show more</a>
-        </div><!--end of side_block-->
 
-        <div class="side_block">
-            <div class="side_title">Fees</div>
-            <div class="side_row">
-            <?php echo $this->Form->radio('Fee.fee', array(0 => 'Show All', 1 => 'No Fee', 2 => 'Flat Fare Under $5', 3 => 'Flat Fare $5 - $15', 4 => 'Other Fee Structure'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
-            </div>
-        </div><!--end of side_block-->
-
-        <div class="side_block">
-            <div class="side_title">Eligibility Requirements</div>
-            <div class="side_row">
-            <?php echo $this->Form->radio('Eligibility.reqs', array(0 => 'Show All', 1 => 'Eligibility required', 2 => 'Open to public'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
-            </div>
-        </div><!--end of side_block-->
-    </div><!--end of sidebar-->
-
-    <div class="main_content">
-        <div class="path_box">
-            <div class="path_form">
-                <?php echo $this->element('zip_search_fields');?>
-            </div>
-        </div>
-        <div id="content_for_update">
-            <?php echo $this->element('search_results');?>
-        </div>
-    </div><!--end of main_content-->
-</div>
-<?php echo $this->Form->end();?>
 <script type="text/javascript">
 function insert_location(loc){
     loc_div = $('#select_loc_'+loc);
@@ -127,7 +65,7 @@ function set_address_options(address_type, addresses){
 }
 
 $(document).ready(function(){
-	$('.find_box').remove();
+    $('.find_box').remove();
 	
     change_loc_selects('Origin', 0);
     change_loc_selects('Destination', 0);
@@ -145,6 +83,70 @@ $(document).ready(function(){
     });
 });
 </script>
+
+<div class="cont_box_inside">
+    <?php echo $this->Form->create('Program');?>
+    <?php foreach($locations as $zip_type => $zips){
+        echo $this->Form->hidden('Location.'.$zip_type, array('value' => (is_array($zips) ? implode(',', $zips) : $zips)));
+    }?>
+    <?php foreach($addresses as $address_type => $addresses){
+        echo $this->Form->hidden('Address.'.$address_type, array('value' => (is_array($addresses) ? '' : $addresses)));
+    }?>
+    <div id="select_address_Origin" class="pop_location">
+        <div class="pop_arrow">arrow</div>
+        <a href="#" class="pop_close">close</a>
+        <div class="pop_title">Did you mean:</div>
+        <ul class="select_address_ul"></ul>
+    </div>
+    <div id="select_address_Destination" class="pop_location">
+        <div class="pop_arrow">arrow</div>
+        <a href="#" class="pop_close">close</a>
+        <div class="pop_title">Did you mean:</div>
+        <ul class="select_address_ul"></ul>
+    </div>
+    <div class="sidebar">
+        <div class="map"><?php echo $this->element('map');?></div>
+        <div id="trip_duration"></div>
+        <?php echo $this->Html->link('View driving directions', 'http://maps.google.com', array('id' => 'map_route_link', 'class' => 'map_view', 'style' => 'display:none', 'target' => '_blank'));?><br />
+        <?php echo $this->Html->link('View public transit routes', 'http://maps.google.com?f=d&dirflg=r', array('id' => 'map_pub_route_link', 'style' => 'display:none', 'class' => 'map_view', 'target' => '_blank'));?>
+        <div class="title_option">FILTER OPTIONS</div>
+        <div class="side_block">
+            <div class="side_title">Specific Services You Require</div>
+            <?php $i = 1;foreach($services as $service_id => $service_label){?>
+                <div class="side_row<?php echo ($i++ > 5 ? ' more_services" style="display:none;' : '');?>">
+                    <?php echo $this->Form->input('Service.id.'.$service_id, array('type'=>'checkbox', 'class' => 'input_checkbox', 'label'=>$service_label, 'value' => $service_id));?>
+                </div>
+            <?php }?>
+            <a href='#' class="btn_more" onClick="$('div.more_services').toggle();return false;">show more</a>
+        </div><!--end of side_block-->
+
+        <div class="side_block">
+            <div class="side_title">Fees</div>
+            <div class="side_row">
+            <?php echo $this->Form->radio('Fee.fee', array(0 => 'Show All', 1 => 'No Fee', 2 => 'Flat Fare Under $5', 3 => 'Flat Fare $5 - $15', 4 => 'Other Fee Structure'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
+            </div>
+        </div><!--end of side_block-->
+
+        <div class="side_block">
+            <div class="side_title">Eligibility Requirements</div>
+            <div class="side_row">
+            <?php echo $this->Form->radio('Eligibility.reqs', array(0 => 'Show All', 1 => 'Eligibility required', 2 => 'Open to public'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
+            </div>
+        </div><!--end of side_block-->
+    </div><!--end of sidebar-->
+
+    <div class="main_content">
+        <div class="path_box">
+            <div class="path_form">
+                <?php echo $this->element('zip_search_fields');?>
+            </div>
+        </div>
+        <div id="content_for_update">
+            <?php echo $this->element('search_results');?>
+        </div>
+    </div><!--end of main_content-->
+</div>
+<?php echo $this->Form->end();?>
 
 <?php $this->Js->get('div.sidebar :input')->event('change', 'submit_form(1);');?>
 <?php echo $this->Js->writeBuffer();?>
