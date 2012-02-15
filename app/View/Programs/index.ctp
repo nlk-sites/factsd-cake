@@ -127,6 +127,8 @@ function set_address_options(address_type, addresses){
 }
 
 $(document).ready(function(){
+	$('.find_box').remove();
+	
     change_loc_selects('Origin', 0);
     change_loc_selects('Destination', 0);
     $('#ProgramOrigin').change(function(){hide_address_select('Origin')});
