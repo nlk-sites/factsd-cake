@@ -103,7 +103,7 @@
                     </div><!--end of find_box-->
         <?php }?>
 */?>
-    <?php readfile(FULL_BASE_URL.dirname($this->base).'header-fix/');?>
+    <?php readfile(FULL_BASE_URL.dirname($this->base).'/header-fix/');?>
         <div class="cont_box">
             <?php echo $this->Session->flash(); ?>
 
@@ -113,7 +113,7 @@
     </div><!--end of content-->
 
     <?php echo $this->Js->writeBuffer();?>
-    <?php readfile(FULL_BASE_URL.dirname($this->base).'footer-fix/');?>
+    <?php readfile(FULL_BASE_URL.dirname($this->base).'/footer-fix/');?>
     <?php /*
     <div id="footer">
         <div class="footer_row1">
