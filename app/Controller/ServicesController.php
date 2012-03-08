@@ -109,11 +109,18 @@ class ServicesController extends AppController {
         if (!$this->Service->exists()) {
             throw new NotFoundException(__('Invalid service'));
         }
-        if ($this->Service->delete()) {
-            $this->Session->setFlash(__('Service deleted'));
-            $this->redirect(array('action'=>'index'));
+        $program_services = $this->Service->find('first', array('conditions' => array('Service.id' => $id), 'contain' => array('Program' => array('fields' => array('id', 'name')))));
+        if(isset($program_services['Program']) && !empty($program_services['Program'])){
+            $this->Session->setFlash('This service cannot be deleted because it is being used by one or more programs.  Below are the programs that have '.$program_services['Service']['name'].' listed among their services.');
+            $this->set('program_services', $program_services);
+            $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Can\'t Delete '.$program_services['Service']['name'], 'no_agency' => TRUE)));
+        }else{
+            if ($this->Service->delete()) {
+                $this->Session->setFlash(__('Service deleted'));
+                $this->redirect(array('action'=>'index'));
+            }
+            $this->Session->setFlash(__('Service was not deleted'));
+            $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Service was not deleted'));
-        $this->redirect(array('action' => 'index'));
     }
 }

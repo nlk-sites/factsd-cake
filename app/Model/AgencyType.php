@@ -6,6 +6,7 @@ App::uses('AppModel', 'Model');
  * @property Agency $Agency
  */
 class AgencyType extends AppModel {
+    public $actsAs = array('Containable');
 /**
  * Display field
  *

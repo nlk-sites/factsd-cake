@@ -101,7 +101,8 @@ class Program extends AppModel {
             'conditions' => '',
             'fields' => '',
             'order' => '',
-            'type' => 'INNER'
+            'type' => 'INNER',
+            'dependent' => true
         ),
         'ProgramOrigZip' => array(
             'className' => 'ProgramOrigZip',
@@ -109,7 +110,8 @@ class Program extends AppModel {
             'conditions' => '',
             'fields' => '',
             'order' => '',
-            'type' => 'INNER'
+            'type' => 'INNER',
+            'dependent' => true
         )
     );
 
@@ -140,14 +142,16 @@ class Program extends AppModel {
             'foreignKey' => 'program_id',
             'conditions' => '',
             'fields' => '',
-            'order' => ''
+            'order' => '',
+            'dependent' => true
         ),
         'Review' => array(
             'className' => 'Review',
             'foreignKey' => 'program_id',
             'conditions' => '',
             'fields' => '',
-            'order' => ''
+            'order' => '',
+            'dependent' => true
         )
         /*
         'ProgramDestZip' => array(
@@ -198,7 +202,8 @@ class Program extends AppModel {
             'offset' => '',
             'finderQuery' => '',
             'deleteQuery' => '',
-            'insertQuery' => ''
+            'insertQuery' => '',
+            'dependent' => true
         ),
         'Service' => array(
             'className' => 'Service',
@@ -213,7 +218,8 @@ class Program extends AppModel {
             'offset' => '',
             'finderQuery' => '',
             'deleteQuery' => '',
-            'insertQuery' => ''
+            'insertQuery' => '',
+            'dependent' => true
         )
     );
     

@@ -135,11 +135,19 @@ class AgenciesController extends AppController {
         if (!$this->Agency->exists()) {
             throw new NotFoundException(__('Invalid agency'));
         }
-        if ($this->Agency->delete()) {
-            $this->Session->setFlash(__('Agency deleted'));
-            $this->redirect(array('action'=>'index'));
+        $this->Agency->bindModel(array('hasMany' => array('Admin' => array('className' => 'Admin'))));
+        $agency_del_data = $this->Agency->find('first', array('conditions' => array('Agency.id' => $id), 'fields' => array('id', 'name'), 'contain' => array('Program' => array('fields' => array('id', 'name')), 'Admin' => array('fields' => array('first_name', 'last_name', 'email', 'id')))));
+        if((isset($agency_del_data['Program']) && !empty($agency_del_data['Program'])) || (isset($agency_del_data['Admin']) && !empty($agency_del_data['Admin']))){
+            $this->Session->setFlash('This agency cannot be deleted because it is being used by one or more programs or users.  Below are the programs and users that have '.$agency_del_data['Agency']['name'].' listed as their agency.');
+            $this->set('agency_del_data', $agency_del_data);
+            $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Can\'t Delete '.$agency_del_data['Agency']['name'], 'no_agency' => TRUE)));
+        }else{
+            if ($this->Agency->delete($id, TRUE)) {
+                $this->Session->setFlash(__('Agency deleted'));
+                $this->redirect(array('action'=>'index'));
+            }
+            $this->Session->setFlash(__('Agency was not deleted'));
+            $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Agency was not deleted'));
-        $this->redirect(array('action' => 'index'));
     }
 }

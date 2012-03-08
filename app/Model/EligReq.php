@@ -23,15 +23,15 @@ class EligReq extends AppModel {
         'name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
-                //'message' => 'Your custom message here',
+                'message' => 'Please enter a name for this eligibility requirement.',
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
             'maxlength' => array(
-                'rule' => array('maxlength'),
-                //'message' => 'Your custom message here',
+                'rule' => array('maxlength', 50),
+                'message' => 'Please enter a name no more than 50 characters long.',
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule
@@ -51,7 +51,7 @@ class EligReq extends AppModel {
         'EligReqOption' => array(
             'className' => 'EligReqOption',
             'foreignKey' => 'elig_req_id',
-            'dependent' => false,
+            'dependent' => true,
             'conditions' => '',
             'fields' => '',
             'order' => '',

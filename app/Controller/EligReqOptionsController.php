@@ -111,12 +111,19 @@ class EligReqOptionsController extends AppController {
         if (!$this->EligReqOption->exists()) {
             throw new NotFoundException(__('Invalid eligibility requirement option'));
         }
-        $elig_req_id = $this->EligReqOption->field('elig_req_id', array('EligReqOption.id' => $id));
-        if ($this->EligReqOption->delete()) {
-            $this->Session->setFlash(__('Eligibility requirement option deleted'));
+        $program_elig_reqs = $this->EligReqOption->find('first', array('conditions' => array('EligReqOption.id' => $id), 'contain' => array('Program' => array('fields' => array('id', 'name')))));
+        if(isset($program_elig_reqs['Program']) && !empty($program_elig_reqs['Program'])){
+            $this->Session->setFlash('This eligibility requirement option cannot be deleted because it is being used by one or more programs.  Below are the programs that have '.$program_elig_reqs['EligReqOption']['name'].' listed among their eligibility requirements.');
+            $this->set('program_elig_reqs', $program_elig_reqs);
+            $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Can\'t Delete '.$program_elig_reqs['EligReqOption']['name'], 'no_agency' => TRUE)));
+        }else{
+            $elig_req_id = $this->EligReqOption->field('elig_req_id', array('EligReqOption.id' => $id));
+            if ($this->EligReqOption->delete()) {
+                $this->Session->setFlash(__('Eligibility requirement option deleted'));
+                $this->redirect(array('controller' => 'elig_reqs', 'action' => 'admin_edit', $elig_req_id));
+            }
+            $this->Session->setFlash(__('Eligibility requirement option was not deleted'));
             $this->redirect(array('controller' => 'elig_reqs', 'action' => 'admin_edit', $elig_req_id));
         }
-        $this->Session->setFlash(__('Eligibility requirement option was not deleted'));
-        $this->redirect(array('controller' => 'elig_reqs', 'action' => 'admin_edit', $elig_req_id));
     }
 }

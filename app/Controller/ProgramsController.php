@@ -354,12 +354,12 @@ class ProgramsController extends AppController {
  * @param string $id
  * @return void
  */
-    public function admin_delete($id = null) {
+    public function admin_delete($id = NULL) {
         $this->Program->id = $id;
         if (!$this->Program->exists()) {
             throw new NotFoundException(__('Invalid program'));
         }
-        if ($this->Program->delete()) {
+        if ($this->Program->delete($id, TRUE)) {
             $this->flash(__('Program deleted'), array('action' => 'index'));
         }
         $this->flash(__('Program was not deleted'), array('action' => 'index'));

@@ -95,11 +95,18 @@ class RegionsController extends AppController {
         if (!$this->Region->exists()) {
             throw new NotFoundException(__('Invalid region'));
         }
-        if ($this->Region->delete()) {
-            $this->Session->setFlash(__('Region deleted'));
-            $this->redirect(array('action'=>'index'));
+        $zip_regions = $this->Region->find('first', array('conditions' => array('Region.id' => $id), 'contain' => array('ZipAlias' => array('fields' => array('id', 'name')), 'Zip')));
+        if((isset($zip_regions['ZipAlias']) && !empty($zip_regions['ZipAlias'])) || (isset($zip_regions['Zip']) && !empty($zip_regions['Zip']))){
+            $this->Session->setFlash('This region cannot be deleted because it is being used by one or more zip aliases or zipcodes.  Below are the zipcodes and zip aliases that have '.$zip_regions['Region']['name'].' listed as their region.');
+            $this->set('zip_regions', $zip_regions);
+            $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Can\'t Delete '.$zip_regions['Region']['name'], 'no_agency' => TRUE)));
+        }else{
+            if ($this->Region->delete()) {
+                $this->Session->setFlash(__('Region deleted'));
+                $this->redirect(array('action'=>'index'));
+            }
+            $this->Session->setFlash(__('Region was not deleted'));
+            $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Region was not deleted'));
-        $this->redirect(array('action' => 'index'));
     }
 }

@@ -95,11 +95,18 @@ class ZipAliasTypesController extends AppController {
         if (!$this->ZipAliasType->exists()) {
             throw new NotFoundException(__('Invalid zip alias type'));
         }
-        if ($this->ZipAliasType->delete()) {
-            $this->Session->setFlash(__('Zip alias type deleted'));
-            $this->redirect(array('action'=>'index'));
+        $zip_aliases_types = $this->ZipAliasType->find('first', array('conditions' => array('ZipAliasType.id' => $id), 'contain' => array('ZipAlias' => array('fields' => array('id', 'name')))));
+        if(isset($zip_aliases_types['ZipAlias']) && !empty($zip_aliases_types['ZipAlias'])){
+            $this->Session->setFlash('This zip alias type cannot be deleted because it is being used by one or more zip aliases.  Below are the zip aliases that have '.$zip_aliases_types['ZipAliasType']['name'].' listed as their zip alias type.');
+            $this->set('zip_aliases', $zip_aliases_types);
+            $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Can\'t Delete '.$zip_aliases_types['ZipAliasType']['name'], 'no_agency' => TRUE)));
+        }else{
+            if ($this->ZipAliasType->delete()) {
+                $this->Session->setFlash(__('Zip alias type deleted'));
+                $this->redirect(array('action'=>'index'));
+            }
+            $this->Session->setFlash(__('Zip alias type was not deleted'));
+            $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Zip alias type was not deleted'));
-        $this->redirect(array('action' => 'index'));
     }
 }

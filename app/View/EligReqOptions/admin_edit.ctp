@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <td class="form-label">
-                    Weight
+                    Weight<span class="required">*</span>
                 </td>
                 <td class="form-data">
                     <?php echo $this->Form->input('EligReqOption.weight', array('label' => FALSE, 'error' => FALSE)); ?>

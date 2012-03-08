@@ -140,7 +140,7 @@ class Agency extends AppModel {
         'AgencyAlias' => array(
             'className' => 'AgencyAlias',
             'foreignKey' => 'agency_id',
-            'dependent' => false,
+            'dependent' => true,
             'conditions' => '',
             'fields' => '',
             'order' => '',
@@ -153,7 +153,7 @@ class Agency extends AppModel {
         'AgencyPhone' => array(
             'className' => 'AgencyPhone',
             'foreignKey' => 'agency_id',
-            'dependent' => false,
+            'dependent' => true,
             'conditions' => '',
             'fields' => '',
             'order' => '',
@@ -179,7 +179,7 @@ class Agency extends AppModel {
     );
     
     public function getSidebarLinks($action, $controller, $extra = array()){
-        if($controller == 'AgencyTypes' || ($controller == 'Agencies' && in_array($action, array('admin_index', 'admin_add')))){
+        if($controller == 'AgencyTypes' || ($controller == 'Agencies' && in_array($action, array('admin_index', 'admin_add', 'admin_delete')))){
             $name = 'Agencies';
             $pages = array(
                 'View Agencies' => array(

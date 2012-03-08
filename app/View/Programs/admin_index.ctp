@@ -42,7 +42,7 @@
                 <td><?php echo h($program['Program']['name']); ?>&nbsp;</td>
                 <?php if($user_level >= 1000){?>
                     <td>
-                        <?php echo $this->Html->link($program['Agency']['name'], array('controller' => 'agencies', 'action' => 'view', $program['Agency']['id'])); ?>
+                        <?php echo $this->Html->link($program['Agency']['name'], array('controller' => 'agencies', 'action' => 'edit', $program['Agency']['id'])); ?>
                     </td>
                 <?php }?>
                 <td><?php if(!empty($program['Program']['url']))echo $this->Html->link(substr($program['Program']['url'], 0, 20).(strlen($program['Program']['url']) > 20 ? '...' : ''), (strpos($program['Program']['url'], 'http://') === 0 || strpos($program['Program']['url'], 'https://') === 0 ? '' : 'http://').$program['Program']['url']); ?>&nbsp;</td>

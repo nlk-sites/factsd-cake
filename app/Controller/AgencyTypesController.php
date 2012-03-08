@@ -95,11 +95,18 @@ class AgencyTypesController extends AppController {
         if (!$this->AgencyType->exists()) {
             throw new NotFoundException(__('Invalid agency type'));
         }
-        if ($this->AgencyType->delete()) {
-            $this->Session->setFlash(__('Agency type deleted'));
-            $this->redirect(array('action'=>'index'));
+        $agencies_types = $this->AgencyType->find('first', array('conditions' => array('AgencyType.id' => $id), 'contain' => array('Agency' => array('fields' => array('id', 'name')))));
+        if(isset($agencies_types['Agency']) && !empty($agencies_types['Agency'])){
+            $this->Session->setFlash('This agency type cannot be deleted because it is being used by one or more agency.  Below are the agencies that have '.$agencies_types['AgencyType']['name'].' listed as their agency type.');
+            $this->set('agencies_types', $agencies_types);
+            $this->set('breadcrumbs', $this->get_breadcrumbs(array('cur_title' => 'Can\'t Delete '.$agencies_types['AgencyType']['name'], 'no_agency' => TRUE)));
+        }else{
+            if ($this->AgencyType->delete()) {
+                $this->Session->setFlash(__('Agency type deleted'));
+                $this->redirect(array('action'=>'index'));
+            }
+            $this->Session->setFlash(__('Agency type was not deleted'));
+            $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Agency type was not deleted'));
-        $this->redirect(array('action' => 'index'));
     }
 }
