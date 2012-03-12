@@ -59,7 +59,8 @@ class ProgramsController extends AppController {
         $this->set('origin', $origin);
         $this->set('destination', $destination);
     }
-    public function index() {
+    public function index($hide_map = FALSE) {
+        $this->set('hide_map', (bool) $hide_map);
         $contains = array('Agency');
         $conditions = array('Program.id IS NOT NULL');
         $joins = array();

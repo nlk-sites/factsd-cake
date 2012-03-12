@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
 function insert_location(loc){
     loc_div = $('#select_loc_'+loc);
@@ -105,10 +104,12 @@ $(document).ready(function(){
         <ul class="select_address_ul"></ul>
     </div>
     <div class="sidebar">
-        <div class="map"><?php echo $this->element('map');?></div>
-        <div id="trip_duration"></div>
-        <?php echo $this->Html->link('View driving directions', 'http://maps.google.com', array('id' => 'map_route_link', 'class' => 'map_view', 'style' => 'display:none', 'target' => '_blank'));?><br />
-        <?php echo $this->Html->link('View public transit routes', 'http://maps.google.com?f=d&dirflg=r', array('id' => 'map_pub_route_link', 'style' => 'display:none', 'class' => 'map_view', 'target' => '_blank'));?>
+        <div id="map_wrapper" <?php if($hide_map){echo 'style="display:none;"';}?>>
+            <div class="map"><?php echo $this->element('map');?></div>
+            <div id="trip_duration"></div>
+            <?php echo $this->Html->link('View larger map', array('controller' => 'programs', 'action' => 'map_route'), array('id' => 'map_route_link', 'class' => 'map_view', 'style' => 'display:none'));?><br />
+            <?php echo $this->Html->link('View public transit routes', 'http://maps.google.com?f=d&dirflg=r', array('id' => 'map_pub_route_link', 'style' => 'display:none', 'class' => 'map_view', 'target' => '_blank'));?>
+        </div>
         <div class="title_option">FILTER OPTIONS</div>
         <div class="side_block">
             <div class="side_title">Specific Services You Require</div>

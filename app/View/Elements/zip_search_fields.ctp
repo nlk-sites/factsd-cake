@@ -12,7 +12,7 @@
         <a href="#" id="select_location_link_Destination" onClick="show_location_select($(this), 'Destination', 'loc');return false;" class="btn_other">or select a location</a>
     </div>
 
-    <?php echo $this->Form->submit('FIND A RIDE', array('id' => 'submit_filters', 'onClick="submit_form(0);return false;"', 'class' => 'input_submit'));?>
+    <?php echo $this->Form->submit('FIND A RIDE', array('id' => 'submit_filters', 'onClick'=>'submit_form(0);return false;', 'class' => 'input_submit'));?>
 </fieldset>
 <?php echo $this->element('select_location', array('zip_alias_types' => $zip_alias_types, 'location_type' => 'Origin')); ?>
 <?php echo $this->element('select_location', array('zip_alias_types' => $zip_alias_types, 'location_type' => 'Destination')); ?>

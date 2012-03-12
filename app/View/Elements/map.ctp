@@ -14,22 +14,30 @@ var map;
 var san_diego;
 var all_markers = [];
 function initialize() {
-  san_diego = new google.maps.LatLng(32.963758, -116.800286);
-  var myOptions = {
-    region:'us',
-    zoom:7,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    center: san_diego,
-    disableDefaultUI: true,
-    zoomControl: true,
-    zoomControlOptions: {
-        style: google.maps.ZoomControlStyle.SMALL
-    },
-    minZoom: 6
-  }
-  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-  //directionsDisplay.setMap(map);
-   
+    san_diego = new google.maps.LatLng(32.963758, -116.800286);
+    var myOptions = {
+        region:'us',
+        zoom:7,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: san_diego,
+        disableDefaultUI: true,
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.SMALL
+        },
+        minZoom: 6
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    //directionsDisplay.setMap(map);
+    if($('#map_wrapper').is(':hidden') && ($('#AddressOrigin').val() != '' || $('#AddressDestination').val() != '')){
+        submit_form(0);
+    }
+}
+
+function unhide_map(){
+    $('#map_wrapper').show();
+    google.maps.event.trigger(map, 'resize');
+    map.setCenter(san_diego, 7);
 }
 
 function dropMarker(address){
@@ -62,7 +70,7 @@ function calcRoute() {
     var end = $('#AddressDestination').val();
     clearMarkers();
     if(start == '' && end == ''){
-        map.setCenter(san_diego);
+        map.setCenter(san_diego, 7);
     }else if(start == ''){
         dropMarker(end);
     }else if(end == ''){
@@ -86,6 +94,7 @@ function calcRoute() {
                 $('#trip_duration').text(result.routes[0].legs[0].distance['text']+', '+result.routes[0].legs[0].duration['text']).show();
                 directionsDisplay.setDirections(result);
                 all_markers.push(directionsDisplay);
+                map.fitBounds(result.routes[0].bounds);
             }
         });
     }
@@ -95,5 +104,5 @@ $(document).ready(function(){initialize();});
 
 </script>
 <div>
-  <div id="map_canvas" style="height:96px;<!-- width:200px; -->"></div>
+  <div id="map_canvas" style="height:96px; width:200px;"></div>
 </div>

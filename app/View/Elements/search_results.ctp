@@ -1,6 +1,9 @@
 <?php if(isset($reset_map)){?>
     <script>
     $(document).ready(function(){
+        if($('#map_wrapper').is(':hidden')){
+            unhide_map();
+        }
         <?php foreach($locations as $zip_type => $zips){?>
             $('#Location<?php echo ucfirst($zip_type);?>').val("<?php echo (is_array($zips) ? implode(',', $zips) : $zips);?>");
         <?php }?>
@@ -14,7 +17,9 @@
         <?php }?>
         calcRoute();
         <?php if(count(array_filter($addresses)) == 2){
-            $route = 'http://maps.google.com/maps?f=d&saddr='.urlencode($addresses['origin']).'&mrt=loc&t=m&daddr='.urlencode($addresses['destination']);?>
+            //$route = 'http://maps.google.com/maps?f=d&saddr='.urlencode($addresses['origin']).'&mrt=loc&t=m&daddr='.urlencode($addresses['destination']);
+            $route = $this->Html->url(array('controller' => 'programs', 'action' => 'map_route', $addresses['origin'], $addresses['destination']));
+            ?>
             $('#map_route_link').show().attr('href', '<?php echo $route;?>');
             $('#map_pub_route_link').show().attr('href', '<?php echo $route;?>&dirflg=r');
         <?php }else{?>
