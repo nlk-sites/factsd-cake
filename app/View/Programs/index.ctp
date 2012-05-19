@@ -85,10 +85,14 @@ $(document).ready(function(){
         var cookie_values = jQuery.parseJSON(raw_cookie_values);
         for(cookie in cookie_values){
             cookie_type = cookie_values[cookie]['type'];
+            cookie_value = cookie_values[cookie]['value'];
             if(cookie_type != 'input'){
-                $('#'+cookie).prop("checked", cookie_values[cookie]['value']);
+                $('#'+cookie).prop("checked", cookie_value);
             }else{
-                $('#'+cookie).val(cookie_values[cookie]['value']);
+                if(cookie == 'ProgramOrigin' || cookie == 'ProgramDestination'){
+                    cookie_value = cookie_value.split("+").join(" ");
+                }
+                $('#'+cookie).val(cookie_value);
             }
         }
         submit_form(0);
@@ -110,7 +114,7 @@ function getCookie(c_name){
     return "";
 }
 </script>
-
+<?php pr($_COOKIE);?>
 <div class="cont_box_inside">
     <?php
     echo $this->Form->create('Program', array('action' => 'get_results_data', 'id' => 'ProgramIndexForm'));

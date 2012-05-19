@@ -108,13 +108,13 @@ class ProgramsController extends AppController {
         $msgs = array();
         $orig_request_data = $this->Cookie->read('search_data');
         if($this->request->data){
-            $this->Cookie->write('search_data', $this->get_data_cookie($this->request->data), false);
             if(isset($this->request->data['Program']['origin']) && $this->request->data['Program']['origin'] == 'Your pick up location'){
                 $this->request->data['Program']['origin'] = '';
             }
             if(isset($this->request->data['Program']['destination']) && $this->request->data['Program']['destination'] == 'Going to'){
                 $this->request->data['Program']['destination'] = '';
             }
+            $this->Cookie->write('search_data', $this->get_data_cookie($this->request->data), false);
             $origin = '';
             $destination = '';
             foreach($this->request->data['Program'] as $addresstype => $address){
