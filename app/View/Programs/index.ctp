@@ -92,6 +92,8 @@ $(document).ready(function(){
             }
         }
         submit_form(0);
+    }else{
+        submit_form(1);
     }
 });
 
