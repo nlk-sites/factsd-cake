@@ -231,7 +231,8 @@ class ProgramsController extends AppController {
         }else{
             $page_cookie = $this->Cookie->read('search_page');
             if(isset($page_cookie) && $page_cookie != '' && $page_cookie != NULL){
-                if(serialize(array_diff_key($orig_request_data, array_keys($remove_fields))) == serialize(array_diff_key($this->Cookie->read('search_data'), array_keys($remove_fields)))){
+                $current_request_data = $this->Cookie->read('search_data');
+                if(isset($orig_request_data) && is_array($orig_request_data) && is_array($current_request_data) && serialize(array_diff_key($orig_request_data, array_keys($remove_fields))) == serialize(array_diff_key($current_request_data, array_keys($remove_fields)))){
                     $this->paginate['page'] = $this->Cookie->read('search_page');
                 }else{
                     $this->Cookie->delete('search_page');
