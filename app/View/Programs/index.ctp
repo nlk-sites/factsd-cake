@@ -114,7 +114,7 @@ function getCookie(c_name){
     return "";
 }
 </script>
-<?php pr($_COOKIE);?>
+
 <div class="cont_box_inside">
     <?php
     echo $this->Form->create('Program', array('action' => 'get_results_data', 'id' => 'ProgramIndexForm'));
