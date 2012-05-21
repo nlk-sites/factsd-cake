@@ -80,49 +80,17 @@ $(document).ready(function(){
         $(this).parents('.pop_location').fadeOut(200);
         return false;
     });
-    var raw_cookie_values = getCookie('CakeCookie[search_data]');
-    if(raw_cookie_values != ""){
-        var cookie_values = jQuery.parseJSON(raw_cookie_values);
-        for(cookie in cookie_values){
-            cookie_type = cookie_values[cookie]['type'];
-            cookie_value = cookie_values[cookie]['value'];
-            if(cookie_type != 'input'){
-                $('#'+cookie).prop("checked", cookie_value);
-            }else{
-                if(cookie == 'ProgramOrigin' || cookie == 'ProgramDestination'){
-                    cookie_value = cookie_value.split("+").join(" ");
-                }
-                $('#'+cookie).val(cookie_value);
-            }
-        }
-        submit_form(0);
-    }else{
-        submit_form(1);
-    }
 });
-
-function getCookie(c_name){
-    if (document.cookie.length>0){
-        c_start=document.cookie.indexOf(c_name + "=");
-        if (c_start!=-1){ 
-            c_start=c_start + c_name.length+1; 
-            c_end=document.cookie.indexOf(";",c_start);
-            if (c_end==-1) c_end=document.cookie.length;
-            return unescape(document.cookie.substring(c_start,c_end));
-        }
-    }
-    return "";
-}
 </script>
 
 <div class="cont_box_inside">
-    <?php
-    echo $this->Form->create('Program', array('action' => 'get_results_data', 'id' => 'ProgramIndexForm'));
-    echo $this->Form->hidden('Location.origin', array('value' => ''));
-    echo $this->Form->hidden('Location.destination', array('value' => ''));
-    echo $this->Form->hidden('Address.origin', array('value' => ''));
-    echo $this->Form->hidden('Address.destination', array('value' => ''));
-    ?>
+    <?php echo $this->Form->create('Program');?>
+    <?php foreach($locations as $zip_type => $zips){
+        echo $this->Form->hidden('Location.'.$zip_type, array('value' => (is_array($zips) ? implode(',', $zips) : $zips)));
+    }?>
+    <?php foreach($addresses as $address_type => $addresses){
+        echo $this->Form->hidden('Address.'.$address_type, array('value' => (is_array($addresses) ? '' : $addresses)));
+    }?>
     <div id="select_address_Origin" class="pop_location">
         <div class="pop_arrow">arrow</div>
         <a href="#" class="pop_close">close</a>
@@ -175,6 +143,7 @@ function getCookie(c_name){
             </div>
         </div>
         <div id="content_for_update">
+            <?php echo $this->element('search_results');?>
         </div>
     </div><!--end of main_content-->
 </div>
