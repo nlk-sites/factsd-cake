@@ -230,8 +230,15 @@ class ProgramsController extends AppController {
             $this->Cookie->write('search_page', $this->passedArgs['page']);
         }else{
             $page_cookie = $this->Cookie->read('search_page');
-            if(isset($page_cookie) && $page_cookie != '' && $page_cookie != NULL){
+            if(!empty($page_cookie)){
                 $current_request_data = $this->Cookie->read('search_data');
+                if(isset($orig_request_data) && !is_array($orig_request_data) && !empty($orig_request_data)){
+                    $orig_request_data = get_magic_quotes_gpc() ? json_decode(stripslashes($orig_request_data)) : json_decode($orig_request_data);
+                    $orig_request_data = (array)$orig_request_data;
+                    foreach($orig_request_data as $k => $n){
+                        $orig_request_data[$k] = (array)$n;
+                    }
+                }
                 if(isset($orig_request_data) && is_array($orig_request_data) && is_array($current_request_data) && serialize(array_diff_key($orig_request_data, array_keys($remove_fields))) == serialize(array_diff_key($current_request_data, array_keys($remove_fields)))){
                     $this->paginate['page'] = $this->Cookie->read('search_page');
                 }else{
