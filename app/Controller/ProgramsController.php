@@ -14,11 +14,11 @@ class ProgramsController extends AppController {
     );
     public $uses = array('Program', 'Zip', 'Service', 'ZipAliasType', 'ZipAlias', 'EligReq', 'EligReqOption');
     public $helpers = array('Js' => array('Jquery'));
-    public $components = array('RequestHandler');
+    public $components = array('RequestHandler', 'Cookie');
     
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('map', 'map_route', 'lists');
+        $this->Auth->allow('map', 'map_route', 'lists', 'get_results_data');
     }
     
     public function beforeRender(){
@@ -59,13 +59,54 @@ class ProgramsController extends AppController {
         $this->set('origin', $origin);
         $this->set('destination', $destination);
     }
+    
+    function get_data_cookie($fields){
+        $cookie = array();
+        unset($fields['filter']);
+        $select_fields = array('Service' => 'checkbox', 'Fee' => 'radio', 'Eligibility' => 'radio');
+        $field_name = 'radio, ';
+        foreach($fields as $name0 => $d0){
+            $field_type = isset($select_fields[$name0]) ? $select_fields[$name0] : 'input';
+            $this->format_data_cookie($cookie, $field_type, $d0, $name0);
+        }
+        return $cookie;
+    }
+    
+    function format_data_cookie(&$cookie, $field_type, $data, $full_name, $level_name=''){
+        if(is_array($data)){
+            foreach($data as $d_name => $d_val){
+                $this->format_data_cookie($cookie, $field_type, $d_val, $full_name.ucfirst($level_name), $d_name);
+            }
+        }else{
+            if($field_type == 'radio'){
+                $level_name .= $data;
+            }
+            $name = Inflector::camelize($full_name.ucfirst($level_name));
+            if($field_type == 'checkbox'){
+                $data = (bool) $data;
+            }
+            $cookie[$name] = array('value' => $data, 'type' => $field_type);
+        }
+    }
+    
+    
+    
     public function index($hide_map = FALSE) {
         $this->set('hide_map', (bool) $hide_map);
+        $this->set('services', $this->Service->find('list', array('joins' => array(array('table'=>'programs_services', 'alias'=>'ProgramsService', 'type'=>'INNER', 'conditions'=>'Service.id=ProgramsService.service_id')), 'group' => 'Service.id')));
+        list($zip_aliases, $zip_alias_types) = $this->ZipAliasType->get_aliases();
+        $this->set('zip_alias_types', $zip_alias_types);
+        $this->set('zip_aliases', $zip_aliases);
+    }
+    
+    public function get_results_data($hide_map = FALSE) {
+        //$this->set('hide_map', (bool) $hide_map);
         $contains = array('Agency');
         $conditions = array('Program.id IS NOT NULL');
         $joins = array();
         $addresses = array('origin' => null, 'destination' => null);
         $msgs = array();
+        $orig_request_data = $this->Cookie->read('search_data');
         if($this->request->data){
             if(isset($this->request->data['Program']['origin']) && $this->request->data['Program']['origin'] == 'Your pick up location'){
                 $this->request->data['Program']['origin'] = '';
@@ -73,6 +114,7 @@ class ProgramsController extends AppController {
             if(isset($this->request->data['Program']['destination']) && $this->request->data['Program']['destination'] == 'Going to'){
                 $this->request->data['Program']['destination'] = '';
             }
+            $this->Cookie->write('search_data', $this->get_data_cookie($this->request->data), false);
             $origin = '';
             $destination = '';
             foreach($this->request->data['Program'] as $addresstype => $address){
@@ -173,30 +215,40 @@ class ProgramsController extends AppController {
         $this->paginate['contain'] = $contains;
         $this->paginate['group'] = 'Program.id';
         $this->paginate['fields'] = array('Agency.name', 'Program.id', 'Program.name', 'Program.description', 'Program.phone', 'Program.url', 'Program.email', 'Program.slug');
-
-        if($this->RequestHandler->isAjax()){
-            if(!$this->request->data && $this->Session->check('search_options')){
-                $this->paginate = $this->Session->read('search_options');
+        
+        if(!$this->request->data){
+            $search_options = $this->Cookie->read('search_options');
+            if($search_options){
+                $this->paginate = $this->Cookie->read('search_options');
             }
-            $this->viewPath = 'Elements';
         }
 
-        $this->Session->write('search_options', $this->paginate);
+        $this->Cookie->write('search_options', $this->paginate);
+        $remove_fields = array('LocationOrigin', 'LocationDestination', 'AddressOrigin', 'AddressDestination', 'OriginZipAliasTypeId', 'OriginZipAliasId1', 'DestinationZipAliasTypeId', 'DestinationZipAliasId1');
+        if(isset($this->passedArgs['page'])){
+            $this->paginate['page'] = $this->passedArgs['page'];
+            $this->Cookie->write('search_page', $this->passedArgs['page']);
+        }else{
+            $page_cookie = $this->Cookie->read('search_page');
+            if(isset($page_cookie) && $page_cookie != '' && $page_cookie != NULL){
+                $current_request_data = $this->Cookie->read('search_data');
+                if(isset($orig_request_data) && is_array($orig_request_data) && is_array($current_request_data) && serialize(array_diff_key($orig_request_data, array_keys($remove_fields))) == serialize(array_diff_key($current_request_data, array_keys($remove_fields)))){
+                    $this->paginate['page'] = $this->Cookie->read('search_page');
+                }else{
+                    $this->Cookie->delete('search_page');
+                }
+            }
+        }
+        
+        $this->viewPath = 'Elements';
+
         $destination = (isset($this->paginate['conditions']['ProgramDestZip.zip_id']) ? $this->paginate['conditions']['ProgramDestZip.zip_id'] : "");
         $origin = (isset($this->paginate['conditions']['ProgramOrigZip.zip_id']) ? $this->paginate['conditions']['ProgramOrigZip.zip_id'] : "");
         $this->set('locations', array('origin' => $origin, 'destination' => $destination));
         $this->set('programs', $this->paginate('Program'));
         $this->set('addresses', $addresses);
         $this->set('msgs', $msgs);
-
-        if($this->viewPath == 'Elements'){
-            $this->render('search_results');
-        }else{
-            $this->set('services', $this->Service->find('list', array('joins' => array(array('table'=>'programs_services', 'alias'=>'ProgramsService', 'type'=>'INNER', 'conditions'=>'Service.id=ProgramsService.service_id')), 'group' => 'Service.id')));
-            list($zip_aliases, $zip_alias_types) = $this->ZipAliasType->get_aliases();
-            $this->set('zip_alias_types', $zip_alias_types);
-            $this->set('zip_aliases', $zip_aliases);
-        }
+        $this->render('search_results');
     }
 
 /**
