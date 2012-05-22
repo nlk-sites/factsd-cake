@@ -63,7 +63,7 @@
         </div>
     <?php }?>
 </div><!--end of result_pager-->
-<div style="font-weight: bold; font-style: italic; font-size: 11px; padding: 0 0 10px 15px;">Website improvements in progress, please call 1-888-3228 for assistance.</div>
+<div style="font-weight: bold; font-style: italic; font-size: 11px; padding: 0 0 10px 15px;">Website improvements in progress, please call 1-888-924-3228 for assistance.</div>
 <div class="search_result_box">
     <div class="search_result_title">
         <span>Agency / Program</span>
