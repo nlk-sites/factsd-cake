@@ -554,8 +554,8 @@ class ProgramsController extends AppController {
     }
     
     public function lists(){
-        $open_programs = $this->Program->find('all', array('recursive' => -1, 'fields' => array('Program.name', 'Program.slug'), 'order' => array('name'), 'conditions' => array('Program.clients_only' => 1)));
-        $closed_programs = $this->Program->find('all', array('recursive' => -1, 'fields' => array('Program.name', 'Program.slug'), 'order' => array('name'), 'conditions' => array('Program.clients_only <> ' => 1)));
+        $closed_programs = $this->Program->find('all', array('recursive' => -1, 'fields' => array('Program.name', 'Program.slug'), 'order' => array('name'), 'conditions' => array('Program.clients_only' => 1)));
+        $open_programs = $this->Program->find('all', array('recursive' => -1, 'fields' => array('Program.name', 'Program.slug'), 'order' => array('name'), 'conditions' => array('Program.clients_only <> ' => 1)));
         $this->set(compact('open_programs', 'closed_programs'));
     }
 }
