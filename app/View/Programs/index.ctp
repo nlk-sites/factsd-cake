@@ -81,6 +81,7 @@ $(document).ready(function(){
         return false;
     });
     var raw_cookie_values = getCookie('CakeCookie[search_data]');
+    <?php if(!isset($submitted_data)){?>
     if(raw_cookie_values != ""){
         var cookie_values = jQuery.parseJSON(raw_cookie_values);
         for(cookie in cookie_values){
@@ -99,6 +100,9 @@ $(document).ready(function(){
     }else{
         submit_form(1);
     }
+    <?php }else{?>
+        submit_form(0);
+    <?php }?>
 });
 
 function getCookie(c_name){

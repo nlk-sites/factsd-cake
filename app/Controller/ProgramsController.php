@@ -97,6 +97,17 @@ class ProgramsController extends AppController {
         list($zip_aliases, $zip_alias_types) = $this->ZipAliasType->get_aliases();
         $this->set('zip_alias_types', $zip_alias_types);
         $this->set('zip_aliases', $zip_aliases);
+        if(!empty($this->data) && isset($this->data['Program'])){
+            $submitted_data = array();
+            foreach(array('origin', 'destination') as $loc_type){
+                if(isset($this->data['Program'][$loc_type]) && !empty($this->data['Program'][$loc_type]) && !in_array($this->data['Program'][$loc_type], array('Your pick up location', 'Going to'))){
+                    $submitted_data[$loc_type] = $this->data['Program'][$loc_type];
+                }
+            }
+            if(!empty($submitted_data)){
+                $this->set('submitted_data', $submitted_data);
+            }
+        }
     }
     
     public function get_results_data($hide_map = FALSE) {
