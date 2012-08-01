@@ -17,11 +17,11 @@
         <?php }?>
         calcRoute();
         <?php if(count(array_filter($addresses)) == 2){
-            //$route = 'http://maps.google.com/maps?f=d&saddr='.urlencode($addresses['origin']).'&mrt=loc&t=m&daddr='.urlencode($addresses['destination']);
+            $public_route = 'http://maps.google.com/maps?f=d&saddr='.urlencode($addresses['origin']).'&mrt=loc&t=m&daddr='.urlencode($addresses['destination']);
             $route = $this->Html->url(array('controller' => 'programs', 'action' => 'map_route', $addresses['origin'], $addresses['destination']));
             ?>
             $('#map_route_link').show().attr('href', '<?php echo $route;?>');
-            $('#map_pub_route_link').show().attr('href', '<?php echo $route;?>&dirflg=r');
+            $('#map_pub_route_link').show().attr('href', '<?php echo $public_route;?>&dirflg=r');
         <?php }else{?>
             $('#map_route_link').attr('href', '#').hide();
             $('#map_pub_route_link').attr('href', '#').hide();
