@@ -90,9 +90,11 @@ class FeesController extends AppController {
         if (!$this->Fee->exists()) {
             throw new NotFoundException(__('Invalid fee'));
         }
+        $program_id = $this->Fee->field('Fee.program_id', array('Fee.id' => $id));
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Fee->save($this->request->data)) {
                 $this->Session->setFlash('The fee has been saved.');
+                
                 $this->redirect(array('action' => 'index', $program_id));
             } else {
                 $errors = $this->Fee->validationErrors;
@@ -110,7 +112,6 @@ class FeesController extends AppController {
             $this->request->data = $this->Fee->read(null, $id);
         }
         $feeTypes = $this->FeeType->find('list');
-        $program_id = $this->Fee->field('Fee.program_id', array('Fee.id' => $id));
         $program_info = $this->Program->find('first', array('conditions' => array('Program.id' => $program_id), 'contain' => array('Agency')));
         $this->set(compact('program_info', 'feeTypes'));
         $this->set('breadcrumbs', $this->get_breadcrumbs(array('program_id' => $program_id, 'cur_title' => 'Edit Fee')));
