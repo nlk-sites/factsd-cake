@@ -126,7 +126,7 @@
                     <div class="contact_title contact_title_open_hours">Open Hours</div>
                     <?php
                     if($program['Program']['open_hours_24_7'] == 1){
-                        echo '<p><b>Open 24 hours, 7 days a week</b></p>';
+                        echo '<p><b style="width:100%">Open 24 hours, 7 days a week</b></p>';
                     }else{
                         foreach(array('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun') as $day){
                             echo '<p><b>'.ucfirst($day).':</b> '.$program['Program']['open_hours_'.$day].'</p>';
