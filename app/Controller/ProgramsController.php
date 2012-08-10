@@ -129,6 +129,9 @@ class ProgramsController extends AppController {
                 $this->request->data['Program']['destination'] = '';
             }
             //Check to see if it's a new search so that visited programs will be reset
+            pr($orig_request_data);
+            pr(empty($orig_request_data));
+            pr($this->request->data);
             if(empty($orig_request_data) || $this->request->data['Program']['destination'] != $orig_request_data['ProgramDestination']['value'] || $this->request->data['Program']['origin'] != $orig_request_data['ProgramOrigin']['value']){
                 $visited = $this->Cookie->read('visited_programs');
                 if(!empty($visited)){
