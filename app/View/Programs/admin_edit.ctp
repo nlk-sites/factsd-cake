@@ -161,6 +161,20 @@
                 <td class="form-data">
                     <?php echo $this->Form->input('Program.clients_only', array('label' => FALSE, 'type' => 'select', 'options' => array(0 => 'No', 1 => 'Yes'), 'error' => FALSE));?>
                 </td>
+                <td class="form-label">
+                    Application Required<span class="required">*</span>
+                </td>
+                <td class="form-data">
+                    <?php echo $this->Form->input('Program.application_required', array('label' => FALSE, 'type' => 'select', 'options' => array(0 => 'No', 1 => 'Yes'), 'error' => FALSE));?>
+                </td>
+            </tr>
+            <tr>
+                <td class="form-label">
+                    Disabled (Invisible to users)<span class="required">*</span>
+                </td>
+                <td class="form-data">
+                    <?php echo $this->Form->input('Program.disabled', array('label' => FALSE, 'type' => 'select', 'options' => array(0 => 'No', 1 => 'Yes'), 'error' => FALSE));?>
+                </td>
             </tr>
             <tr>
                 <td class="form-label">

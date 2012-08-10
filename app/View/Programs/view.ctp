@@ -6,6 +6,9 @@
                         <p><strong>Umbrella Agency:</strong> <?php echo $program['Agency']['name'];?></p>
                         <p><strong>Program Name:</strong> <?php echo $program['Program']['name'];?></p>
                         <p>
+                            <?php if($program['Program']['application_required'] == 1){?>
+                                <strong>Application Required</strong><br />
+                            <?php }?>
                             <?php if($program['Program']['clients_only'] == 1){?>
                                 <strong>Transportation for clients only</strong><br />
                             <?php }?>

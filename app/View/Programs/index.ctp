@@ -154,13 +154,14 @@ function getCookie(c_name){
                     <?php echo $this->Form->input('Service.id.'.$service_id, array('type'=>'checkbox', 'class' => 'input_checkbox', 'label'=>$service_label, 'value' => $service_id));?>
                 </div>
             <?php }?>
-            <a href='#' class="btn_more" onClick="$('div.more_services').toggle();if($('div.more_services').is(':visible')){$(this).text('show less');}else{$(this).text('show more');}return false;">show more</a>
+            <!--a href='#' class="btn_more" onClick="$('div.more_services').toggle();if($('div.more_services').is(':visible')){$(this).text('show less');}else{$(this).text('show more');}return false;">show more</a-->
         </div><!--end of side_block-->
 
         <div class="side_block">
             <div class="side_title">Fees</div>
             <div class="side_row">
-            <?php echo $this->Form->radio('Fee.fee', array(0 => 'Show All', 1 => 'No Fee', 2 => 'Flat Fare Under $5', 3 => 'Flat Fare $5 - $15', 4 => 'Other Fee Structure'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
+            <?php //echo $this->Form->radio('Fee.fee', array(0 => 'Show All', 1 => 'No Fee', 2 => 'Flat Fare Under $5', 3 => 'Flat Fare $5 - $15', 4 => 'Other Fee Structure'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
+            <?php echo $this->Form->radio('Fee.fee', array(0 => 'Show All', 1 => 'No Fee'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
             </div>
         </div><!--end of side_block-->
 

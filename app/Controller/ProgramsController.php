@@ -93,7 +93,10 @@ class ProgramsController extends AppController {
     
     public function index($hide_map = FALSE) {
         $this->set('hide_map', (bool) $hide_map);
-        $this->set('services', $this->Service->find('list', array('joins' => array(array('table'=>'programs_services', 'alias'=>'ProgramsService', 'type'=>'INNER', 'conditions'=>'Service.id=ProgramsService.service_id')), 'group' => 'Service.id')));
+        $filter_services = array(1, 31, 28, 25, 26);
+        //$this->set('services', $this->Service->find('list', array('joins' => array(array('table'=>'programs_services', 'alias'=>'ProgramsService', 'type'=>'INNER', 'conditions'=>'Service.id=ProgramsService.service_id')), 'group' => 'Service.id')));
+        $services = $this->Service->find('list', array('conditions' => array('Service.id' => $filter_services), 'order' => array('FIELD(Service.id, '.implode($filter_services, ', ').')')));
+        $this->set('services', $services);
         list($zip_aliases, $zip_alias_types) = $this->ZipAliasType->get_aliases();
         $this->set('zip_alias_types', $zip_alias_types);
         $this->set('zip_aliases', $zip_aliases);
@@ -113,7 +116,7 @@ class ProgramsController extends AppController {
     public function get_results_data($hide_map = FALSE) {
         //$this->set('hide_map', (bool) $hide_map);
         $contains = array('Agency');
-        $conditions = array('Program.id IS NOT NULL');
+        $conditions = array('Program.id IS NOT NULL', 'Program.disabled <> 1');
         $joins = array();
         $addresses = array('origin' => null, 'destination' => null);
         $msgs = array();
@@ -124,6 +127,13 @@ class ProgramsController extends AppController {
             }
             if(isset($this->request->data['Program']['destination']) && $this->request->data['Program']['destination'] == 'Going to'){
                 $this->request->data['Program']['destination'] = '';
+            }
+            //Check to see if it's a new search so that visited programs will be reset
+            if($this->request->data['Program']['destination'] != $orig_request_data['ProgramDestination']['value'] || $this->request->data['Program']['origin'] != $orig_request_data['ProgramOrigin']['value']){
+                $visited = $this->Cookie->read('visited_programs');
+                if(!empty($visited)){
+                    $this->Cookie->delete('visited_programs');
+                }
             }
             $this->Cookie->write('search_data', $this->get_data_cookie($this->request->data), false);
             $origin = '';
@@ -225,7 +235,7 @@ class ProgramsController extends AppController {
         $this->paginate['order'] = 'Program.name';
         $this->paginate['contain'] = $contains;
         $this->paginate['group'] = 'Program.id';
-        $this->paginate['fields'] = array('Agency.name', 'Program.id', 'Program.name', 'Program.description', 'Program.phone', 'Program.url', 'Program.email', 'Program.slug');
+        $this->paginate['fields'] = array('Agency.name', 'Program.id', 'Program.name', 'Program.description', 'Program.phone', 'Program.url', 'Program.email', 'Program.slug', 'Program.application_required');
         
         if(!$this->request->data){
             $search_options = $this->Cookie->read('search_options');
@@ -259,7 +269,12 @@ class ProgramsController extends AppController {
         }
         
         $this->viewPath = 'Elements';
-
+        
+        $visited_programs = $this->Cookie->read('visited_programs');
+        if(empty($visited_programs)){
+            $visited_programs = array();
+        }
+        $this->set('visited_programs', $visited_programs);
         $destination = (isset($this->paginate['conditions']['ProgramDestZip.zip_id']) ? $this->paginate['conditions']['ProgramDestZip.zip_id'] : "");
         $origin = (isset($this->paginate['conditions']['ProgramOrigZip.zip_id']) ? $this->paginate['conditions']['ProgramOrigZip.zip_id'] : "");
         $this->set('locations', array('origin' => $origin, 'destination' => $destination));
@@ -322,6 +337,14 @@ class ProgramsController extends AppController {
         if (!$this->Program->exists()) {
             throw new NotFoundException(__('Invalid program'));
         }
+        $visited_programs = $this->Cookie->read('visited_programs');
+        if(empty($visited_programs)){
+            $visited_programs = array();
+        }
+        if(!in_array($id, $visited_programs)){
+            $visited_programs[] = $id;
+        }
+        $this->Cookie->write('visited_programs', $visited_programs);
         $contains = array('Agency', 'Service', 'EligReqOption'=>array('EligReq'), 'Fee', 'Review' => array('conditions' => array('Review.approved' => 1)));
         $program = $this->Program->find('first', array('conditions' => array('Program.id' => $id), 'contain' => $contains));
         $program_id = $id;
@@ -554,8 +577,8 @@ class ProgramsController extends AppController {
     }
     
     public function lists(){
-        $closed_programs = $this->Program->find('all', array('recursive' => -1, 'fields' => array('Program.name', 'Program.slug'), 'order' => array('name'), 'conditions' => array('Program.clients_only' => 1)));
-        $open_programs = $this->Program->find('all', array('recursive' => -1, 'fields' => array('Program.name', 'Program.slug'), 'order' => array('name'), 'conditions' => array('Program.clients_only <> ' => 1)));
+        $closed_programs = $this->Program->find('all', array('recursive' => -1, 'fields' => array('Program.name', 'Program.slug'), 'order' => array('name'), 'conditions' => array('Program.clients_only' => 1, 'Program.disabled <> 1')));
+        $open_programs = $this->Program->find('all', array('recursive' => -1, 'fields' => array('Program.name', 'Program.slug'), 'order' => array('name'), 'conditions' => array('Program.clients_only <> ' => 1, 'Program.disabled <> 1')));
         $this->set(compact('open_programs', 'closed_programs'));
     }
 }

@@ -1,3 +1,6 @@
+<script>
+    $('.search_result_box a').click(function(){$(this).closest('.search_result_row').addClass('visited_program');});
+</script>
 <?php if(isset($reset_map)){?>
     <script>
     $(document).ready(function(){
@@ -70,7 +73,7 @@
         <strong>Contact</strong>
     </div>
     <?php foreach ($programs as $program){ ?>
-        <div class="search_result_row">
+        <div class="search_result_row<?php if(in_array($program['Program']['id'], $visited_programs)){echo ' visited_program';}?>">
             <div class="result_title"><?php echo $this->Html->link($program['Program']['name'], array('action' => 'view', $program['Program']['slug'])); ?></div>
             <div class="result_txt1">
                 <p>
@@ -82,15 +85,18 @@
                 </p>
             </div>
             <div class="result_txt2">
+                <?php if (!empty($program['Program']['application_required'])) { ?>
+                    <p><strong>Application Required</strong></p>
+                <?php } ?>
                 <?php if (!empty($program['Program']['phone'])) { ?>
-                        <p><strong>Phone:</strong> <?php echo $program['Program']['phone']; ?></p>
-                    <?php } ?>
-                    <?php if (!empty($program['Program']['url'])) { ?>
-                        <p><strong>Website:</strong> <a href="<?php echo (substr($program['Program']['url'], 0, 4) == 'http' ? '' : 'http://') . $program['Program']['url']; ?>"><?php echo $program['Program']['url']; ?></a></p>
-                    <?php } ?>
-                    <?php if (!empty($program['Program']['email'])) { ?>
-                        <p><strong>Email:</strong> <a href="mailto:<?php echo $program['Program']['email']; ?>"><?php echo $program['Program']['email']; ?></a></p>
-                    <?php } ?>
+                    <p><strong>Phone:</strong> <?php echo $program['Program']['phone']; ?></p>
+                <?php } ?>
+                <?php if (!empty($program['Program']['url'])) { ?>
+                    <p><strong>Website:</strong> <a href="<?php echo (substr($program['Program']['url'], 0, 4) == 'http' ? '' : 'http://') . $program['Program']['url']; ?>"><?php echo $program['Program']['url']; ?></a></p>
+                <?php } ?>
+                <?php if (!empty($program['Program']['email'])) { ?>
+                    <p><strong>Email:</strong> <a href="mailto:<?php echo $program['Program']['email']; ?>"><?php echo $program['Program']['email']; ?></a></p>
+                <?php } ?>
             </div>
         </div><!--end of search_result_row-->
     <?php }?>
