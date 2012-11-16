@@ -221,18 +221,18 @@ class ProgramsController extends AppController {
                                     $fee_or[1]['Fee.fee_type_id'] = 9;
                                     break;
                                 case 2:
-                                    $fee_or[2]['Fee.fee_type_id'] = array(2, 8);
+                                    $fee_or[2]['Fee.fee_type_id'] = array(1, 2);
                                     $fee_or[2]['Fee.fee <='] = 5;
                                     break;
                                 case 3:
-                                    $fee_or[3]['Fee.fee_type_id'] = array(2, 8);
+                                    $fee_or[3]['Fee.fee_type_id'] = array(1, 2);
                                     $fee_or[3]['Fee.fee BETWEEN ? AND ?'] = array(5, 15);
                                     break;
                                 case 4:
-                                    $fee_or[4]['NOT']['Fee.fee_type_id'] = array(2, 8, 9);
+                                    $fee_or[4]['NOT']['Fee.fee_type_id'] = array(1, 2, 9);
                                     break;
                                 case 5: //fare $5 - $10
-                                    $fee_or[5]['Fee.fee_type_id'] = array(2, 8);
+                                    $fee_or[5]['Fee.fee_type_id'] = array(1, 2);
                                     $fee_or[5]['Fee.fee BETWEEN ? AND ?'] = array(5, 10);
                                     break;
                             }
