@@ -159,10 +159,13 @@ function getCookie(c_name){
 
         <div class="side_block">
             <div class="side_title">Fees</div>
-            <div class="side_row">
             <?php //echo $this->Form->radio('Fee.fee', array(0 => 'Show All', 1 => 'No Fee', 2 => 'Flat Fare Under $5', 3 => 'Flat Fare $5 - $15', 4 => 'Other Fee Structure'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
-            <?php echo $this->Form->radio('Fee.fee', array(0 => 'Show All', 1 => 'No Fee'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
-            </div>
+            <?php //echo $this->Form->radio('Fee.fee', array(0 => 'Show All', 1 => 'No Fee'), array('default' => 0, 'legend' => false, 'separator' => '</div><div class="side_row">', 'class' => 'input_radio'));?>
+            <?php foreach(array(1 => 'Free', 2 => 'Fare Under $5', 5 => 'Fare $5 - $10', 0 => 'Show All') as $fee_id => $fee_op){?>
+                <div class="side_row">
+                    <?php echo $this->Form->input('Fee.fee.'.$fee_id, array('checked' => ($fee_id != 0 ? TRUE : FALSE), 'type'=>'checkbox', 'class' => 'input_checkbox', 'label'=>$fee_op, 'value' => $fee_id));?>
+                </div>
+            <?php }?>
         </div><!--end of side_block-->
 
         <div class="side_block">

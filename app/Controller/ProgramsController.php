@@ -63,7 +63,7 @@ class ProgramsController extends AppController {
     function get_data_cookie($fields){
         $cookie = array();
         unset($fields['filter']);
-        $select_fields = array('Service' => 'checkbox', 'Fee' => 'radio', 'Eligibility' => 'radio');
+        $select_fields = array('Service' => 'checkbox', 'Fee' => 'checkbox', 'Eligibility' => 'radio');
         $field_name = 'radio, ';
         foreach($fields as $name0 => $d0){
             $field_type = isset($select_fields[$name0]) ? $select_fields[$name0] : 'input';
@@ -212,21 +212,35 @@ class ProgramsController extends AppController {
             }
             if(!empty($this->request->data['Fee']['fee'])){
                 $joins[] = array('table'=>'fees', 'alias'=>'Fee', 'type'=>'LEFT', 'conditions'=>'Program.id=Fee.program_id');
-                switch($this->request->data['Fee']['fee']){
-                    case 1:
-                        $conditions['Fee.fee_type_id'] = 9;
-                        break;
-                    case 2:
-                        $conditions['Fee.fee_type_id'] = array(2, 8);
-                        $conditions['Fee.fee <='] = 5;
-                        break;
-                    case 3:
-                        $conditions['Fee.fee_type_id'] = array(2, 8);
-                        $conditions['Fee.fee BETWEEN ? AND ?'] = array(5, 15);
-                        break;
-                    case 4:
-                        $conditions['NOT']['Fee.fee_type_id'] = array(2, 8, 9);
-                        break;
+                $fee_or = array();
+                if(!isset($this->request->data['Fee']['fee'][0]) || empty($this->request->data['Fee']['fee'][0])){
+                    foreach($this->request->data['Fee']['fee'] as $fee_op => $fee_op_val){
+                        if(!empty($fee_op) && !empty($fee_op_val)){
+                            switch($fee_op){
+                                case 1:
+                                    $fee_or[1]['Fee.fee_type_id'] = 9;
+                                    break;
+                                case 2:
+                                    $fee_or[2]['Fee.fee_type_id'] = array(2, 8);
+                                    $fee_or[2]['Fee.fee <='] = 5;
+                                    break;
+                                case 3:
+                                    $fee_or[3]['Fee.fee_type_id'] = array(2, 8);
+                                    $fee_or[3]['Fee.fee BETWEEN ? AND ?'] = array(5, 15);
+                                    break;
+                                case 4:
+                                    $fee_or[4]['NOT']['Fee.fee_type_id'] = array(2, 8, 9);
+                                    break;
+                                case 5: //fare $5 - $10
+                                    $fee_or[5]['Fee.fee_type_id'] = array(2, 8);
+                                    $fee_or[5]['Fee.fee BETWEEN ? AND ?'] = array(5, 10);
+                                    break;
+                            }
+                        }
+                    }
+                }
+                if(!empty($fee_or)){
+                    $conditions[]['OR'] = $fee_or;
                 }
             }
             if(!empty($this->request->data['Eligibility']['reqs'])){
