@@ -142,7 +142,7 @@ function getCookie(c_name){
     <div class="sidebar">
     	<div id="search_public_transit">
         <p>Do you need public transits routes using bus, trolley, and/or rail?</p>
-        <a href="#s">Search Public Transit</a>
+        <a href="/public-transit/">Search Public Transit</a>
         </div>
         <div id="map_wrapper" <?php if($hide_map){echo 'style="display:none;"';}?>>
             <div class="map"><?php echo $this->element('map');?></div>
